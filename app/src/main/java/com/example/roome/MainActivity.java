@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                boolean isLoggedIn = accessToken != null && !accessToken.isExpired(); //todo use facebook
                 // Initialize Firebase Auth
                 mFirebaseAuth = FirebaseAuth.getInstance();
                 mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -54,24 +57,28 @@ public class MainActivity extends AppCompatActivity {
                         mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
                     }
                 }
-                Intent i;
-                boolean isFirstTime = MyPreferences.isFirstTime(MainActivity.this);
-                if (isFirstTime) {
-                    //show start activity
-                    i = new Intent(MainActivity.this, ChoosingActivity.class);
-                } else {
-                    boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this); //todo change activity
-                    if (isRoommateSearcher) {
-                        i = new Intent(MainActivity.this, ChoosingActivity.class);//todo change activity
-                    } else {
-                        i = new Intent(MainActivity.this, ChoosingActivity.class);
-
-                    }
-                    i.putExtra(MainActivity.FROM, MAIN_SRC);
-                }
+                Intent i = determineNextActivity(MainActivity.this, "main");
                 startActivity(i);
                 finish();
             }
         }, TIME_OUT);
+    }
+
+    static Intent determineNextActivity(Context context, String calledFrom) {
+        Intent i;
+        boolean isFirstTime = MyPreferences.isFirstTime(context);
+        if (isFirstTime) {
+            //show start activity
+            i = new Intent(context, ChoosingActivity.class);
+        } else {
+            boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(context); //todo change activity
+            if (isRoommateSearcher) {
+                i = new Intent(context, MainActivityRoommateSearcher.class);//todo change activity
+            } else {
+                i = new Intent(context, MainActivityApartmentSearcher.class);
+            }
+            i.putExtra(MainActivity.FROM, calledFrom);
+        }
+        return i;
     }
 }
