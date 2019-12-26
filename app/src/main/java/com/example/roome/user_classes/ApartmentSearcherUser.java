@@ -17,8 +17,8 @@ public class ApartmentSearcherUser extends User {
     private int maxNumDesiredRoommates;
 
 
-    public ApartmentSearcherUser(String firstName, String lastName, int age) {
-        super(firstName, lastName, age);
+    public ApartmentSearcherUser(String firstName, String lastName, String phone, int age) {
+        super(firstName, lastName, phone, age);
     }
 
     //------------------------------------------Getters---------------------------------------------

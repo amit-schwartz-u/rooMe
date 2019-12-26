@@ -5,4 +5,6 @@
     <string name="settings_button_action_bar">settings button action bar</string>
     <string name="edit_profile_button_ab">edit profile</string>
     <string name="edit_filters_button_ab">edit filters</string>
+    <string name="facebook_app_id">490409844921663</string>
+    <string name="fb_login_protocol_scheme">fb490409844921663</string>
 </resources>
