@@ -24,7 +24,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private static final String TAG = "SignInActivity";
@@ -37,6 +36,12 @@ public class SignInActivity extends AppCompatActivity implements
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
 
+    private FirebaseAuth mFirebaseAuth;
+    private static final String EMAIL = "email";
+    private LoginButton loginButton;
+    private TextView displayName, emailID;
+    private ImageView displayImage;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,40 @@ public class SignInActivity extends AppCompatActivity implements
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        // Initialize FirebaseAuth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
+//        displayName = findViewById(R.id.display_name);
+//        emailID = findViewById(R.id.email);
+//        displayImage = findViewById(R.id.image_view);
+        loginButton = findViewById(R.id.login_button);
+//        loginButton.setReadPermissions(Arrays.asList("email", "public_profile")); //todo decide if needed?
+
+        callbackManager = CallbackManager.Factory.create();
+        // If you are using in a fragment, call loginButton.setFragment(this);
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) { //todo
+                Intent i = MainActivity.determineNextActivity(SignInActivity.this, "SignInActivity");
+                startActivity(i);
+                finish();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Log.w(TAG, "sign In With FaceBook Failed");
+                Toast.makeText(SignInActivity.this, "sign In With FaceBook Failed",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -84,11 +123,11 @@ public class SignInActivity extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);

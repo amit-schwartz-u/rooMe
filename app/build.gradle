@@ -69,6 +69,10 @@ dependencies {
 
     //for the range seek-bars
     implementation 'com.yahoo.mobile.client.android.util.rangeseekbar:rangeseekbar-library:0.1.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
+
+    implementation 'com.facebook.android:facebook-login:5.13.0'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

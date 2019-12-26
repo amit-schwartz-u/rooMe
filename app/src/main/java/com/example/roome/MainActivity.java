@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * this activity is presenting the app logo for a few seconds and then disappears.
@@ -51,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+//                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//                boolean isLoggedIn = accessToken != null && !accessToken.isExpired(); //todo use facebook
                 if (firebaseUser == null) {
                     // Not signed in, launch the Sign In activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
