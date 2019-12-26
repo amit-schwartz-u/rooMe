@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roome.user_classes.User;
+import com.facebook.Profile;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,24 +29,21 @@ public class ChoosingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosing);
-        updateUserName();
         // Initialize Firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
+
+        updateUserName();
     }
 
     /**
      * The function displays the user's name (from which it got from the login) in this
      * activity
      */
-    private void updateUserName() {
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
-        String userName = "";
-        if (acct != null) {
-            userName = acct.getDisplayName();
-        }
+    private void updateUserName() { //todo change
+        String userName = mFirebaseUser.getDisplayName();
         TextView textView = findViewById(R.id.tv_hello_name);
         textView.setText(String.format("Hi %s!", userName));
     }
@@ -80,9 +78,18 @@ public class ChoosingActivity extends AppCompatActivity {
     }
 
     private User createNewUser() {
+        String firstName;
+        String lastName;
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
-        String firstName = userAccount.getGivenName();
-        String lastName = userAccount.getFamilyName();
+        if(userAccount!=null) {
+            firstName = userAccount.getGivenName();
+            lastName = userAccount.getFamilyName();
+        }
+        else {
+            Profile user = Profile.getCurrentProfile();
+            firstName = user.getFirstName();
+            lastName = user.getLastName();
+        }
         return new User(firstName, lastName);
     }
 }

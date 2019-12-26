@@ -59,8 +59,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 
+    //Facebook
     implementation 'com.facebook.android:facebook-login:5.13.0'
-
+    implementation 'com.facebook.android:facebook-android-sdk:5.13.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

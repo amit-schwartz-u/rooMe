@@ -8,7 +8,6 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,17 +35,18 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor editor = reader.edit();
         editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
         editor.apply();
+//        FacebookSdk.sdkInitialize(getApplicationContext());
+//        AppEventsLogger.activateApp(MainActivity.this); //todo check if wanted? https://developers.facebook.com/apps/490409844921663/fb-login/quickstart/
         //Time passed till next activity is launched
         int TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                boolean isLoggedIn = accessToken != null && !accessToken.isExpired(); //todo use facebook
                 // Initialize Firebase Auth
                 mFirebaseAuth = FirebaseAuth.getInstance();
                 mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                if (mFirebaseUser == null) {
+
+                if (mFirebaseUser == null || true) {//todo remove true
                     // Not signed in, launch the Sign In activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                     finish();
@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
             //show start activity
             i = new Intent(context, ChoosingActivity.class);
         } else {
-            boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(context); //todo change activity
+            boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(context);
             if (isRoommateSearcher) {
-                i = new Intent(context, MainActivityRoommateSearcher.class);//todo change activity
+                i = new Intent(context, MainActivityRoommateSearcher.class);
             } else {
                 i = new Intent(context, MainActivityApartmentSearcher.class);
             }
