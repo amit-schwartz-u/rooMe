@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 // Initialize Firebase Auth
                 mFirebaseAuth = FirebaseAuth.getInstance();
                 mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                if (mFirebaseUser == null) {
+                if (mFirebaseUser == null || true) { //todo remove true
                     // Not signed in, launch the Sign In activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                     finish();
