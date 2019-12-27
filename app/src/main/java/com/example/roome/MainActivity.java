@@ -19,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String FROM = "called from";
     private static final String MAIN_SRC = "MAIN";
 
-    private String mUsername;
-    private String mPhotoUrl;
-
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -48,16 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 if (mFirebaseUser == null || true) { //todo remove true
                     // Not signed in, launch the Sign In activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                    finish();
-                    return;
                 } else {
-                    mUsername = mFirebaseUser.getDisplayName();
-                    if (mFirebaseUser.getPhotoUrl() != null) {
-                        mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-                    }
+                    Intent i = determineNextActivity(MainActivity.this, MAIN_SRC);
+                    startActivity(i);
                 }
-                Intent i = determineNextActivity(MainActivity.this, "main");
-                startActivity(i);
                 finish();
             }
         }, TIME_OUT);
