@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.roome.R;
@@ -16,8 +17,13 @@ import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class EditProfileApartmentSearcher extends Fragment {
     private Boolean isUserFirstNameValid;
@@ -47,8 +53,29 @@ public class EditProfileApartmentSearcher extends Fragment {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference();
         aUser = ApartmentSearcherUser.getApartmentSearcherUserFromFirebase(mFirebaseDatabaseReference, mFirebaseUser.getUid());
+        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<ApartmentSearcherUser> allUsers = createArrayOfUsers(dataSnapshot);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         super.onCreate(savedInstanceState);
+    }
+
+    private ArrayList<ApartmentSearcherUser> createArrayOfUsers(DataSnapshot dataSnapshot) {
+        ArrayList<ApartmentSearcherUser> allAptSearcherUsers = new ArrayList<>();
+        DataSnapshot dsApartmentSearchers = dataSnapshot.child("users").child("ApartmentSearcherUser");
+        for (DataSnapshot aptS: dsApartmentSearchers.getChildren())
+        {
+            ApartmentSearcherUser userA = aptS.getValue(ApartmentSearcherUser.class);
+            allAptSearcherUsers.add(userA);
+        }
+        return allAptSearcherUsers;
     }
 
     @Override
