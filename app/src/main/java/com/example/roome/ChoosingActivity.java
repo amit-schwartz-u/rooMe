@@ -155,6 +155,7 @@ public class ChoosingActivity extends AppCompatActivity {
     private User createNewUser() {
         String firstName;
         String lastName;
+        //todo check if ok using - getLastSignedInAccount
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
         if(userAccount!=null) {
             firstName = userAccount.getGivenName();

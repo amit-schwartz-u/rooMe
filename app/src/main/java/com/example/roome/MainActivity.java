@@ -1,6 +1,7 @@
 package com.example.roome;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,19 +29,14 @@ public class MainActivity extends AppCompatActivity {
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference firebaseDatabaseReference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Initialize Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseDatabaseReference = firebaseDatabase.getReference();
         //todo delete 4 rows
 //        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
 //        final SharedPreferences.Editor editor = reader.edit();
@@ -95,5 +90,22 @@ public class MainActivity extends AppCompatActivity {
         }else {
             startActivity(i);
         }
+    }
+    static Intent determineNextActivity(Context context, String calledFrom) {
+        Intent i;
+        boolean isFirstTime = MyPreferences.isFirstTime(context);
+        if (isFirstTime) {
+            //show start activity
+            i = new Intent(context, ChoosingActivity.class);
+        } else {
+            boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(context);
+            if (isRoommateSearcher) {
+                i = new Intent(context, MainActivityRoommateSearcher.class);
+            } else {
+                i = new Intent(context, MainActivityApartmentSearcher.class);
+            }
+            i.putExtra(MainActivity.FROM, calledFrom);
+        }
+        return i;
     }
 }
