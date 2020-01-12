@@ -46,8 +46,6 @@ public class SignInActivity extends AppCompatActivity implements
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
 
-    private FirebaseAuth mFirebaseAuth;
-
     private LoginButton fbLoginButton;
     private CallbackManager callbackManager;
 
@@ -77,7 +75,7 @@ public class SignInActivity extends AppCompatActivity implements
                 .build();
 
         // Initialize FirebaseAuth
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Facebook
         fbLoginButton = findViewById(R.id.buttonFacebookLogin);
@@ -175,7 +173,7 @@ public class SignInActivity extends AppCompatActivity implements
     private void firebaseAuthWithFacebook(AccessToken token) {
         Log.d(TAG, "firebase Auth With Facebook:" + token);
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mFirebaseAuth.signInWithCredential(credential)
+        firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
