@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -42,7 +41,6 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
     private EditText phoneNumberEditText;
     private EditText bioEditText;
     private RadioButton maleRadioButton;
-    private Button addApartmentPhoto;
 
     // Firebase instance variables
     private FirebaseDatabase firebaseDatabase;
@@ -114,14 +112,6 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
                 }
             }
         });
-        addApartmentPhoto = findViewById(R.id.btn_add_photos);
-        addApartmentPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadApartmentPhotoOnClick();
-            }
-        });
-
         validateUserInput();
     }
 
@@ -424,6 +414,7 @@ public class RoommateSearcherSetProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void addPhotos(View view) {
+    public void uploadApartmentPhotoOnClick(View view) {
+        uploadApartmentPhotoOnClick();
     }
 }
