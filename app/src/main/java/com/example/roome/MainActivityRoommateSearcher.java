@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.roome.Apartment_searcher_tabs_classes.EditFiltersRoommateSearcher;
+import com.example.roome.Roomate_searcher_tabs_classes.EditFiltersRoommateSearcher;
 import com.example.roome.Roomate_searcher_tabs_classes.EditProfileRoommateSearcher;
 import com.example.roome.Roomate_searcher_tabs_classes.OneFragmentR;
 import com.example.roome.Roomate_searcher_tabs_classes.TwoFragmentR;
