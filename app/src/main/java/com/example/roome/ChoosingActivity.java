@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roome.user_classes.User;
+import com.facebook.Profile;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
@@ -159,10 +160,18 @@ public class ChoosingActivity extends AppCompatActivity {
      * @return a new user object initialized with the users name.
      */
     private User createNewUser() {
+        String firstName;
+        String lastName;
+        //todo check if ok using - getLastSignedInAccount
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(ChoosingActivity.this);
-        String firstName = userAccount.getGivenName();
-        String lastName = userAccount.getFamilyName();
-
+        if (userAccount != null) {
+            firstName = userAccount.getGivenName();
+            lastName = userAccount.getFamilyName();
+        } else {
+            Profile user = Profile.getCurrentProfile();
+            firstName = user.getFirstName();
+            lastName = user.getLastName();
+        }
         return new User(firstName, lastName);
     }
 

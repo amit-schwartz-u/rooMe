@@ -26,47 +26,27 @@ public class MainActivity extends AppCompatActivity {
     //Time passed till next activity is launched
     private static final int TIME_OUT = 3000;
 
-    private String userName;
-    private String mPhotoUrl;
-
-    // Firebase instance variables
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference firebaseDatabaseReference;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Initialize Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseDatabaseReference = firebaseDatabase.getReference();
         FirebaseMediate.setDataSnapshot();
         //todo delete 4 rows
-        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = reader.edit();
-        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
-        editor.apply();
+//        final SharedPreferences reader = getApplicationContext().getSharedPreferences(MyPreferences.MY_PREFERENCES, Context.MODE_PRIVATE);
+//        final SharedPreferences.Editor editor = reader.edit();
+//        editor.putBoolean(MyPreferences.IS_FIRST_TIME, true);
+//        editor.apply();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (firebaseUser == null) {
+                if (MyPreferences.getUserUid(getApplicationContext()) == null) {
                     // Not signed in, launch the Sign In activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                     finish();
-                    return;
                 } else {
-                    userName = firebaseUser.getDisplayName();
-                    if (firebaseUser.getPhotoUrl() != null) {
-                        mPhotoUrl = firebaseUser.getPhotoUrl().toString();
-                    }
+                    startActivityWithAnimation();
+                    finish();
                 }
-                startActivityWithAnimation();
-                finish();
             }
         }, TIME_OUT);
     }
@@ -80,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         boolean isFirstTime = MyPreferences.isFirstTime(MainActivity.this);
         if (isFirstTime) {
             //show home activity
-            i = new Intent(MainActivity.this, SignInActivity.class);
+            i = new Intent(MainActivity.this, ChoosingActivity.class);
         } else {
             boolean isRoommateSearcher = MyPreferences.isRoommateSearcher(MainActivity.this);
             if (isRoommateSearcher) {

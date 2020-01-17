@@ -20,7 +20,7 @@ public class MyPreferences {
 
     public static String getUserUid(Context context) {
         final SharedPreferences reader = getSharedPreferences(context);
-        return reader.getString(USER_UID, "null");
+        return reader.getString(USER_UID, null);
     }
 
     static void setUserUid(Context context, String userUid) {
