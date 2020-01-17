@@ -150,12 +150,4 @@ public class SignInActivity extends AppCompatActivity implements
         finish();
     }
 
-
-
-
-
-    public void randomSignIn(View view) { //todo random
-        startActivity(new Intent(SignInActivity.this, ChoosingActivity.class));
-        finish();
-    }
 }

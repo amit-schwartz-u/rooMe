@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:text="Welcome to \nrooMe"
         android:gravity="center_horizontal"
+        android:text="Welcome to \nrooMe"
         android:textSize="36sp"
         android:textStyle="bold" />
 
@@ -52,14 +52,6 @@
         android:layout_marginTop="600sp"
         android:onClick="signWithoutGoogleFunc"
         android:text="sign without google" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="random signin"
-        android:onClick="randomSignIn"/>
-
 
 </FrameLayout>
 
