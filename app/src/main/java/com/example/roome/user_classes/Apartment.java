@@ -6,6 +6,9 @@ package com.example.roome.user_classes;
  */
 public class Apartment {
 
+    public static final int MAX_RENT = 10000;
+    public static final int MIN_RENT = 0;
+
     /* apartment related info */
     private Boolean hasMainImage;
     private String neighborhood;
