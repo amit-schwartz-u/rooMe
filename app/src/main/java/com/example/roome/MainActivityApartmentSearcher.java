@@ -89,7 +89,7 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
     }
     
     @Override
-    protected void onPause() { //todo being called when exiting app?
+    protected void onPause() {
         super.onPause();
         String aptUid = MyPreferences.getUserUid(getApplicationContext());
         if ( aptUid==null){return;}
