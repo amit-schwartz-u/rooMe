@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -178,20 +179,7 @@ public class EditProfileApartmentSearcher extends Fragment {
         deleteUserAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo pop up dialog - are you sure to delete (y/n)?
-                String aptUid = MyPreferences.getUserUid(getContext());
-                FirebaseMediate.deleteAptUserFromApp(aptUid);
-                for (String roommateId :
-                        FirebaseMediate.getAllRoommateSearcherKeys())
-                {
-                    FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
-                }
-                MyPreferences.resetData(getContext());
-                if (getActivity()!=null) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
+                showSignOutDialog();
             }
         });
         addRedStarToTextView(R.id.tv_age,"Age");
@@ -632,6 +620,50 @@ public class EditProfileApartmentSearcher extends Fragment {
         TextView tv = getView().findViewById(textView);
         SpannableStringBuilder builder1 = setStarToLabel(text);
         tv.setText(builder1);
+    }
+
+    public void showSignOutDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder
+                (getActivity());
+        View v = getLayoutInflater().inflate(R.layout.sing_out_dialog, null);
+        dialogBuilder.setView(v);
+        final AlertDialog alertdialog = dialogBuilder.create();
+        onClickDialog(v, alertdialog);
+        if (alertdialog.getWindow() != null) {
+            alertdialog.getWindow().setBackgroundDrawable
+                    (new ColorDrawable(Color.TRANSPARENT));
+        }
+        alertdialog.show();
+    }
+
+    private void onClickDialog(View view, final AlertDialog alertdialog) {
+        Button signOutBtn = view.findViewById(R.id.signOutBtnDialog);
+        Button cancelBtn = view.findViewById(R.id.cancelBtnDialog);
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String aptUid = MyPreferences.getUserUid(getContext());
+                FirebaseMediate.deleteAptUserFromApp(aptUid);
+                for (String roommateId :
+                        FirebaseMediate.getAllRoommateSearcherKeys())
+                {
+                    FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
+                }
+                MyPreferences.resetData(getContext());
+                if (getActivity()!=null) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertdialog.cancel();
+            }
+        });
     }
 
 }

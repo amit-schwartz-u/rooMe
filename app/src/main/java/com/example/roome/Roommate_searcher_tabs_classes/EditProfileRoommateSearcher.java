@@ -137,17 +137,7 @@ public class EditProfileRoommateSearcher extends Fragment {
         deleteUserAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String rmtUid = MyPreferences.getUserUid(getContext());
-                FirebaseMediate.deleteRoommateUserFromApp(rmtUid);
-                for (String aptId :
-                        FirebaseMediate.getAllApartmentSearcherKeys())
-                {
-                    FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.DELETE_USERS,aptId,rmtUid);
-                }
-                MyPreferences.resetData(getContext());
-                Intent i =  new Intent(getActivity(), MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(i);
+                showSignOutDialog();
             }
         });
         addApartmentPhoto.setOnClickListener(new View.OnClickListener() {
@@ -931,6 +921,48 @@ public class EditProfileRoommateSearcher extends Fragment {
                 userApartment.setHasAC(flag);
                 break;
         }
+    }
+
+    public void showSignOutDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder
+                (getActivity());
+        View v = getLayoutInflater().inflate(R.layout.sing_out_dialog, null);
+        dialogBuilder.setView(v);
+        final AlertDialog alertdialog = dialogBuilder.create();
+        onClickDialog(v, alertdialog);
+        if (alertdialog.getWindow() != null) {
+            alertdialog.getWindow().setBackgroundDrawable
+                    (new ColorDrawable(Color.TRANSPARENT));
+        }
+        alertdialog.show();
+    }
+
+    private void onClickDialog(View view, final AlertDialog alertdialog) {
+        Button signOutBtn = view.findViewById(R.id.signOutBtnDialog);
+        Button cancelBtn = view.findViewById(R.id.cancelBtnDialog);
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String aptUid = MyPreferences.getUserUid(getContext());
+                FirebaseMediate.deleteAptUserFromApp(aptUid);
+                for (String roommateId :
+                        FirebaseMediate.getAllRoommateSearcherKeys())
+                {
+                    FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
+                }
+                MyPreferences.resetData(getContext());
+                Intent i = new Intent(getContext(),MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(i);
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertdialog.cancel();
+            }
+        });
     }
 
 
