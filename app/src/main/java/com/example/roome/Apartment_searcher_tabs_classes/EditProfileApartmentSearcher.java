@@ -187,9 +187,11 @@ public class EditProfileApartmentSearcher extends Fragment {
                     FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
                 }
                 MyPreferences.resetData(getContext());
-                Intent i =  new Intent(getActivity(), MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(i);
+                if (getActivity()!=null) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
             }
         });
         addRedStarToTextView(R.id.tv_age,"Age");
