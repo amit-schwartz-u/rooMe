@@ -1,6 +1,7 @@
 package com.example.roome;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -187,20 +188,30 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         alertdialog.show();
     }
 
-    private void onClickDialog(View view, AlertDialog alertdialog) {
+    private void onClickDialog(View view, final AlertDialog alertdialog) {
         Button signOutBtn = view.findViewById(R.id.signOutBtnDialog);
         Button cancelBtn = view.findViewById(R.id.cancelBtnDialog);
         signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //delete account
+                String aptUid = MyPreferences.getUserUid(getApplicationContext());
+                FirebaseMediate.deleteAptUserFromApp(aptUid);
+                for (String roommateId :
+                        FirebaseMediate.getAllRoommateSearcherKeys())
+                {
+                    FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
+                }
+                MyPreferences.resetData(getApplicationContext());
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(i);
             }
         });
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //cancel dialog
+                alertdialog.cancel();
             }
         });
     }
