@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.roome.AccountDeleter;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivity;
@@ -623,47 +624,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     }
 
     public void showSignOutDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder
-                (getActivity());
-        View v = getLayoutInflater().inflate(R.layout.sing_out_dialog, null);
-        dialogBuilder.setView(v);
-        final AlertDialog alertdialog = dialogBuilder.create();
-        onClickDialog(v, alertdialog);
-        if (alertdialog.getWindow() != null) {
-            alertdialog.getWindow().setBackgroundDrawable
-                    (new ColorDrawable(Color.TRANSPARENT));
-        }
-        alertdialog.show();
+        AccountDeleter deleter = new AccountDeleter(getContext(),getActivity());
+        deleter.showSignOutDialog();
     }
-
-    private void onClickDialog(View view, final AlertDialog alertdialog) {
-        Button signOutBtn = view.findViewById(R.id.signOutBtnDialog);
-        Button cancelBtn = view.findViewById(R.id.cancelBtnDialog);
-        signOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String aptUid = MyPreferences.getUserUid(getContext());
-                FirebaseMediate.deleteAptUserFromApp(aptUid);
-                for (String roommateId :
-                        FirebaseMediate.getAllRoommateSearcherKeys())
-                {
-                    FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
-                }
-                MyPreferences.resetData(getContext());
-                if (getActivity()!=null) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
-            }
-        });
-
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertdialog.cancel();
-            }
-        });
-    }
-
 }

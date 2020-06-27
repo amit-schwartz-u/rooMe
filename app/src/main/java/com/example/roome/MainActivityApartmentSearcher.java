@@ -97,46 +97,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         }
     }
     public void showSignOutDialog(View view) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder
-                (MainActivityApartmentSearcher.this);
-        View v = getLayoutInflater().inflate(R.layout.sing_out_dialog, null);
-        dialogBuilder.setView(v);
-        final AlertDialog alertdialog = dialogBuilder.create();
-        onClickDialog(v, alertdialog);
-        if (alertdialog.getWindow() != null) {
-            alertdialog.getWindow().setBackgroundDrawable
-                    (new ColorDrawable(Color.TRANSPARENT));
-        }
-        alertdialog.show();
+        AccountDeleter deleter = new AccountDeleter(this,this);
+        deleter.showSignOutDialog();
     }
 
-    private void onClickDialog(View view, final AlertDialog alertdialog) {
-        Button signOutBtn = view.findViewById(R.id.signOutBtnDialog);
-        Button cancelBtn = view.findViewById(R.id.cancelBtnDialog);
-        signOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String aptUid = MyPreferences.getUserUid(getApplicationContext());
-                FirebaseMediate.deleteAptUserFromApp(aptUid);
-                for (String roommateId :
-                        FirebaseMediate.getAllRoommateSearcherKeys())
-                {
-                    FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
-                }
-                MyPreferences.resetData(getApplicationContext());
-                Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(i);
-            }
-        });
-
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertdialog.cancel();
-            }
-        });
-    }
     /**
      * updating the lists of the user ( according to prefs)
      */
