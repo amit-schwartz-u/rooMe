@@ -1,6 +1,8 @@
 package com.example.roome.Apartment_searcher_tabs_classes;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +12,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.example.roome.ChoosingActivity;
-import com.example.roome.MainActivityApartmentSearcher;
-import com.example.roome.UsersImageConnector;
 import com.example.roome.FirebaseMediate;
+import com.example.roome.MainActivityApartmentSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
+import com.example.roome.TrashApartmentSearcherActivity;
+import com.example.roome.UsersImageConnector;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.database.ChildEventListener;
@@ -29,7 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.lorenzos.flingswipe.*;
+import com.lorenzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 
@@ -265,7 +270,8 @@ public class ApartmentSearcherHome extends Fragment {
              */
             @Override
             public void onClick(View view) {
-                // we didn't implement this feature
+                Intent i = new Intent(getContext(), TrashApartmentSearcherActivity.class);
+                startActivity(i);
             }
         });
         editFiltersImage.setOnClickListener(new View.OnClickListener() {

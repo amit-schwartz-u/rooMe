@@ -16,6 +16,8 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup,android:supportsRtl">
+        <activity android:name=".TrashRoommateSearcherActivity"></activity>
+        <activity android:name=".TrashApartmentSearcherActivity" />
         <activity android:name=".SendEmailActivity"></activity>
         <activity android:name=".user_classes.RoommateAdditionalInfo" />
         <activity
