@@ -1,10 +1,15 @@
 package com.example.roome;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
 import android.view.Gravity;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -23,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -71,6 +77,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         }
         retrieveUserLists();
         updateUserLists();
+
 
     }
 
@@ -164,6 +171,38 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         adapter.addFragment(new MatchesRoommateSearcher(), "MATCHES");
         adapter.addFragment(new EditProfileRoommateSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
+    }
+
+    public void showSignOutDialog(View view) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder
+                (MainActivityRoommateSearcher.this);
+        View v = getLayoutInflater().inflate(R.layout.sing_out_dialog, null);
+        dialogBuilder.setView(v);
+        final AlertDialog alertdialog = dialogBuilder.create();
+        onClickDialog(v, alertdialog);
+        if (alertdialog.getWindow() != null) {
+            alertdialog.getWindow().setBackgroundDrawable
+                    (new ColorDrawable(Color.TRANSPARENT));
+        }
+        alertdialog.show();
+    }
+
+    private void onClickDialog(View view, AlertDialog alertdialog) {
+        Button signOutBtn = view.findViewById(R.id.signOutBtnDialog);
+        Button cancelBtn = view.findViewById(R.id.cancelBtnDialog);
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //delete account
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //cancel dialog
+            }
+        });
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

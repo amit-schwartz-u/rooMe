@@ -62,4 +62,16 @@
         </com.lorenzos.flingswipe.SwipeFlingAdapterView>
 
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/signOutBtnMain"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:onClick="showSignOutDialog"
+        android:src="@drawable/exit_btn" />
+
 </RelativeLayout>
