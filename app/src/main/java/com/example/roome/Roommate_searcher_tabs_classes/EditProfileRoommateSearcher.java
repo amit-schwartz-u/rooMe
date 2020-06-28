@@ -44,6 +44,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Calendar;
 
@@ -337,30 +339,40 @@ public class EditProfileRoommateSearcher extends Fragment {
     }
 
     public void uploadApartmentPhotoOnClick() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+//        //Create an Intent with action as ACTION_PICK
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        // Sets the type as image/*. This ensures only components of type image are selected
+//        intent.setType("image/*");
+//        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+//        String[] mimeTypes = {"image/jpeg", "image/png"};
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+//        // Launching the Intent
+//        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+
+        CropImage.activity()
+                .setCropMenuCropButtonTitle("finish cropping")
+                .start(getContext(), this);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
-                case GALLERY_REQUEST_CODE:
-                    apartmentImage = data.getData();
-                    hasApartmentPic = true;
-                    ImageView questionImage = getView().findViewById(R.id.image_preview);;
-                    FirebaseMediate.uploadPhotoToStorage(apartmentImage, EditProfileRoommateSearcher.this.getActivity(), getContext(), "Roommate Searcher User", "Apartment");
-                    questionImage.setImageURI(apartmentImage);
+                case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    apartmentImage = result.getUri();
+                    saveNewApartmentImage();
             }
+    }
+
+    private void saveNewApartmentImage() {
+        hasApartmentPic = true;
+        ImageView questionImage = getView().findViewById(R.id.image_preview);
+        FirebaseMediate.uploadPhotoToStorage(apartmentImage, EditProfileRoommateSearcher.this.getActivity(), getContext(), "Roommate Searcher User", "Apartment");
+        questionImage.setImageURI(apartmentImage);
     }
 
     /**
