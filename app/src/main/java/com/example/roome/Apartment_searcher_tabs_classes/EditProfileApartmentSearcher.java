@@ -46,6 +46,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
 import java.io.IOException;
 
 /**
@@ -330,15 +333,11 @@ public class EditProfileApartmentSearcher extends Fragment {
      * button.
      */
     public void uploadPhotoOnClickAS() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        CropImage.activity()
+                .setCropMenuCropButtonTitle("finish cropping")
+                .setCropShape(CropImageView.CropShape.OVAL)
+                .setAspectRatio(1,1)
+                .start(getContext(), this);
     }
 
     /**
@@ -348,20 +347,24 @@ public class EditProfileApartmentSearcher extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result code is RESULT_OK only if the user selects an Image
         if (resultCode == Activity.RESULT_OK)
-            if (requestCode == GALLERY_REQUEST_CODE) {
-                //data.getData returns the content URI for the selected Image
-                selectedImage = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver()
-                            , selectedImage);
-                    profilePic.setImageBitmap(bitmap);
-                    asUser.setHasProfilePic(true);
-                    changedPhoto = true;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                selectedImage = result.getUri();
+                saveNewProfileImage();
             }
+    }
+
+    private void saveNewProfileImage() {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver()
+                    , selectedImage);
+            profilePic.setImageBitmap(bitmap);
+            asUser.setHasProfilePic(true);
+            changedPhoto = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
