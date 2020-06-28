@@ -112,10 +112,25 @@ public class SignInTest {
         clickWithoutGoogleSignInBtn();
         // if all goes well, ChoosingActivity page is displayed
         checkChoosingActivityIsDisplayed();
+        deleteAccount();
     }
 
     /////////////////////////////////////// Functions //////////////////////////////////////////////
 
+    private void deleteAccount() {
+        // choose apartment searcher
+        onView(allOf(withId(R.id.iv_choosing_button_apt),
+                childAtPosition(allOf(withId(R.id.cl_choosing_activity),
+                        childAtPosition(withId(android.R.id.content), 0)), 3),
+                isDisplayed())).perform(click());
+        // go to edit profile page
+        onView(allOf(childAtPosition(childAtPosition(withId(R.id.tabs_apartment),
+                0), 2), isDisplayed())).perform(click());
+        // click delete account
+        onView(withId(R.id.btn_delete_as_user)).perform(scrollTo(), click());
+        // make sure we are on login page by asserting that login button is displayed
+        onView(withId(R.id.btn_sign_without_google)).check(matches(isDisplayed()));
+    }
 
     private void checkChoosingActivityIsDisplayed() {
         onView(allOf(withId(R.id.iv_choosing_button_apt),
@@ -138,14 +153,7 @@ public class SignInTest {
     }
 
     private void clickOkOnPopup() {
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(android.R.id.button1), withText("ok"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                3)));
-        appCompatButton.perform(scrollTo(), click());
+        onView(withText("OK")).perform(scrollTo(), click());
     }
 
     private void clickWithoutGoogleSignInBtn() {

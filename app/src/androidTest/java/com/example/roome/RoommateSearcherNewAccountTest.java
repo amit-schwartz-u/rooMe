@@ -27,6 +27,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -70,6 +71,18 @@ public class RoommateSearcherNewAccountTest {
         pressOKonPopup();       // press ok on popup to get back to editing
         enterMyAge();           // last field to fill
         pressSave();
+        deleteAccount();
+
+    }
+
+    private void deleteAccount() {
+        // go to edit profile page
+        onView(allOf(childAtPosition(childAtPosition(withId(R.id.tabs_roomate),
+                0), 2), isDisplayed())).perform(click());
+        // click delete account
+        onView(withId(R.id.btn_delete_rs_user)).perform(scrollTo(), click());
+        // make sure we are on login page by asserting that login button is displayed
+        onView(withId(R.id.btn_sign_without_google)).check(matches(isDisplayed()));
     }
 
     private void pressOKonPopup() {
@@ -84,50 +97,24 @@ public class RoommateSearcherNewAccountTest {
     }
 
     private void enterMyAge() {
-        ViewInteraction appCompatEditText18 = onView(
-                allOf(withId(R.id.et_enter_age),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                22)));
-        appCompatEditText18.perform(scrollTo(), replaceText("25"), closeSoftKeyboard());
+        onView(withId(R.id.et_enter_age)).perform(scrollTo(),
+                replaceText("25"), closeSoftKeyboard());
     }
 
     private void enterInfo() {
-        ViewInteraction appCompatEditText20 = onView(
-                allOf(withId(R.id.et_apartment_info),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                25)));
-        appCompatEditText20.perform(scrollTo(), replaceText("c"), closeSoftKeyboard());
+        onView(withId(R.id.et_apartment_info)).perform(scrollTo(),
+                replaceText("c"), closeSoftKeyboard());
     }
 
     private void enterPhoneNumber() {
-        ViewInteraction appCompatEditText19 = onView(
-                allOf(withId(R.id.et_phone_number),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                24)));
-        appCompatEditText19.perform(scrollTo(), replaceText("0556565888"), closeSoftKeyboard());
+        onView(withId(R.id.et_phone_number)).perform(scrollTo(),
+                replaceText("0556565888"), closeSoftKeyboard());
     }
 
     private void chooseGender() {
         ViewInteraction appCompatRadioButton2 = onView(
                 allOf(withId(R.id.radio_btn_male), withText("Gentleman"),
-                        childAtPosition(
-                                allOf(withId(R.id.radio_group_choose_gender),
-                                        childAtPosition(
-                                                withId(R.id.cl_details),
-                                                23)),
-                                2)));
+                        childAtPosition(withId(R.id.radio_group_choose_gender), 2)));
         appCompatRadioButton2.perform(scrollTo(), click());
     }
 
@@ -145,50 +132,20 @@ public class RoommateSearcherNewAccountTest {
     }
 
     private void chooseRent() {
-        ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.et_apartment_rent),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                11)));
-        appCompatEditText7.perform(scrollTo(), replaceText("2000"));
+        onView(withId(R.id.et_apartment_rent)).perform(scrollTo(),
+                replaceText("2000"));
 
-        ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.et_apartment_rent), withText("2000"),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                11),
-                        isDisplayed()));
-        appCompatEditText8.perform(closeSoftKeyboard());
+        onView(allOf(withId(R.id.et_apartment_rent), withText("2000"), isDisplayed()))
+                .perform(closeSoftKeyboard());
     }
 
     private void chooseNumRoomates() {
-        ViewInteraction appCompatRadioButton = onView(
-                allOf(withId(R.id.radio_btn_num_of_roommates_3), withText("3"),
-                        childAtPosition(
-                                allOf(withId(R.id.radioGroup_num_of_roommates),
-                                        childAtPosition(
-                                                withId(R.id.cl_details),
-                                                8)),
-                                1)));
-        appCompatRadioButton.perform(scrollTo(), click());
+        onView(allOf(withId(R.id.radio_btn_num_of_roommates_3), withText("3")))
+                .perform(scrollTo(), click());
     }
 
     private void chooseEntryDate() {
-        ViewInteraction appCompatImageView2 = onView(
-                allOf(withId(R.id.iv_choose_apartment_entry_date),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                4)));
-        appCompatImageView2.perform(scrollTo(), click());
+        onView(allOf(withId(R.id.iv_choose_apartment_entry_date))).perform(scrollTo(), click());
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
@@ -202,15 +159,7 @@ public class RoommateSearcherNewAccountTest {
     }
 
     private void chooseNeighborhood() {
-        ViewInteraction appCompatSpinner = onView(
-                allOf(withId(R.id.spinner_neighborhood),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                1)));
-        appCompatSpinner.perform(scrollTo(), click());
+        onView(withId(R.id.spinner_neighborhood)).perform(scrollTo(), click());
 
         DataInteraction appCompatCheckedTextView = onData(anything())
                 .inAdapterView(childAtPosition(
@@ -222,25 +171,9 @@ public class RoommateSearcherNewAccountTest {
 
     private void chooseAge() {
         ////////////////////////////////////// CHANGE MIN AGE ///////////////////../////////////////
-        ViewInteraction appCompatEditText11 = onView(
-                allOf(withId(R.id.et_rs_min_age_val),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                15)));
-        appCompatEditText11.perform(scrollTo(), replaceText("20"));
+        onView((withId(R.id.et_rs_min_age_val))).perform(scrollTo(), replaceText("20"));
         ////////////////////////////////////// CHANGE MAX AGE //////////////////////////////////////
-        ViewInteraction appCompatEditText14 = onView(
-                allOf(withId(R.id.et_rs_max_age_val),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                18)));
-        appCompatEditText14.perform(scrollTo(), replaceText("30"));
+        onView(withId(R.id.et_rs_max_age_val)).perform(scrollTo(), replaceText("30"));
     }
 
     private void getToAccountInitialization() {
