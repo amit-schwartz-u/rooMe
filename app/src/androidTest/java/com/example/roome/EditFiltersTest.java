@@ -41,6 +41,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static java.lang.Thread.sleep;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
@@ -49,6 +50,8 @@ import static org.hamcrest.Matchers.is;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class EditFiltersTest {
+    public static final String  signin_first_name       = "TestFirstName";
+    public static final String  signin_last_name        = "TestLastName";
 
     public static final int     filters_location        = 0;    // checkbox 0 = Rehavia
     public static final String  filters_min_age         = "20";
@@ -70,15 +73,8 @@ public class EditFiltersTest {
     }
 
     @Test
-    public void eDFTest() {
-        // for manual test testing purposes:
-        // check if already signed in and on apartment searcher page
-        try {
-            onView(withId(R.id.iv_edit_filters)).check(matches(isDisplayed()));
-        }
-        catch (NoMatchingViewException e) {
-            signInAndGoToApartmentSearcherPage();
-        }
+    public void EFTest() throws InterruptedException {
+        signInAndGoToApartmentSearcherPage();
         // enter edit filters and choose filters
         onView(withId(R.id.iv_edit_filters)).perform(click());          // click edit filters
         editFilters();
@@ -87,6 +83,18 @@ public class EditFiltersTest {
         // enter edit filters and assert that the information entered was saved and thus displayed
         onView(withId(R.id.iv_edit_filters)).perform(click());          // click edit filters
         compareInfoToPreviouslyEntered();
+        onView(withId(R.id.btn_save_filters_as)).perform(click());      // click save filters
+        deleteAccount();
+    }
+
+    private void deleteAccount() {
+        // go to edit profile page
+        onView(allOf(childAtPosition(childAtPosition(withId(R.id.tabs_apartment),
+                0), 2), isDisplayed())).perform(click());
+        // click delete account
+        onView(withId(R.id.btn_delete_as_user)).perform(scrollTo(), click());
+        // make sure we are on login page by asserting that login button is displayed
+        onView(withId(R.id.btn_sign_without_google)).check(matches(isDisplayed()));
     }
 
     private void compareInfoToPreviouslyEntered() {
@@ -299,7 +307,7 @@ public class EditFiltersTest {
                                                 0)),
                                 2),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("a"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText(signin_first_name), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.et_last_name_without_google),
@@ -310,7 +318,7 @@ public class EditFiltersTest {
                                                 0)),
                                 3),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("a"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText(signin_last_name), closeSoftKeyboard());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btn_sign_without_google), withText("Create account and sign in"),
@@ -333,6 +341,7 @@ public class EditFiltersTest {
                                 3),
                         isDisplayed()));
         appCompatImageView.perform(click());
+
     }
 
     private void checkPriceRange() {
@@ -367,7 +376,7 @@ public class EditFiltersTest {
         appCompatButton2.perform(scrollTo(), click());
     }
 
-    private void checkEntryDate() { // todo
+    private void checkEntryDate() { // todo will be updated with Carmel's issue fix
 //        ViewInteraction appCompatImageView5 = onView(
 //                allOf(withId(R.id.iv_choose_entry_date),
 //                        childAtPosition(

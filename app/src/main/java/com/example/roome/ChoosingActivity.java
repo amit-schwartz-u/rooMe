@@ -62,6 +62,7 @@ public class ChoosingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EspressoIdlingResource.increment();
         super.onCreate(savedInstanceState);
         setAnimation();
         setContentView(R.layout.activity_choosing);
@@ -70,6 +71,7 @@ public class ChoosingActivity extends AppCompatActivity {
         updateUserName();
 
         addListenerToFirebaseDbReference(progressBar);
+        EspressoIdlingResource.decrement();
     }
 
     /**
@@ -81,11 +83,13 @@ public class ChoosingActivity extends AppCompatActivity {
         firebaseDatabaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                EspressoIdlingResource.increment();
                 allRoommateSearcherIds[0] =
                         FirebaseMediate.getAllRoommateSearcherIds(dataSnapshot.child("RoommateSearcherUser"));
                 allApartmentSearcherIds[0] = FirebaseMediate.getAllApartmentSearcherIds(dataSnapshot.child("ApartmentSearcherUser"));
                 done.set(true);
                 progressBar.setVisibility(View.GONE);
+                EspressoIdlingResource.decrement();
             }
 
             @Override

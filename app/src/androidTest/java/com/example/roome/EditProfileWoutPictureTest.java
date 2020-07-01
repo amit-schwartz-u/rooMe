@@ -49,8 +49,8 @@ import static org.hamcrest.Matchers.allOf;
 public class EditProfileWoutPictureTest {
 
     // Sign in with:
-    private String signInFirstName  = "fn";
-    private String signInLastName   = "ln";
+    private String signInFirstName      = "TestFirstName";
+    private String signInLastName       = "TestLastName";
 
     // Update profile with:
     private String updateFirstName      = "Spongebob";
@@ -87,6 +87,13 @@ public class EditProfileWoutPictureTest {
         pressSaveProfile();
         goToMatchesPageAndBackToEditProfile();
         confirmUpdateSucceeded();
+        deleteAccount();
+    }
+
+    private void deleteAccount() {
+        onView(withId(R.id.btn_delete_as_user)).perform(scrollTo(), click());
+        // make sure we are on login page by asserting that login button is displayed
+        onView(withId(R.id.btn_sign_without_google)).check(matches(isDisplayed()));
     }
 
     /////////////////////////////////////// Functions //////////////////////////////////////////////
@@ -152,116 +159,49 @@ public class EditProfileWoutPictureTest {
     private void editProfileWoutPictureUpload() {
         //////////////////////////////////// update first name /////////////////////////////////////
         ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.et_enter_first_name), withText(signInFirstName),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                4)));
+                allOf(withId(R.id.et_enter_first_name), withText(signInFirstName)));
         appCompatEditText5.perform(scrollTo(), replaceText(updateFirstName));
 
         ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.et_enter_first_name), withText(updateFirstName),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                4),
-                        isDisplayed()));
+                allOf(withId(R.id.et_enter_first_name), withText(updateFirstName), isDisplayed()));
         appCompatEditText6.perform(closeSoftKeyboard());
 
         //////////////////////////////////// update last name //////////////////////////////////////
         ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.et_enter_last_name), withText(signInLastName),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                6)));
+                allOf(withId(R.id.et_enter_last_name), withText(signInLastName)));
         appCompatEditText7.perform(scrollTo(), replaceText(updateLastName));
 
         ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.et_enter_last_name), withText(updateLastName),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                6),
-                        isDisplayed()));
+                allOf(withId(R.id.et_enter_last_name), withText(updateLastName), isDisplayed()));
         appCompatEditText8.perform(closeSoftKeyboard());
 
         /////////////////////////////////////// update age /////////////////////////////////////////
-        ViewInteraction appCompatEditText9 = onView(
-                allOf(withId(R.id.et_enter_age),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                9)));
-        appCompatEditText9.perform(scrollTo(), replaceText(updateAge), closeSoftKeyboard());
+        onView(withId(R.id.et_enter_age)).perform(scrollTo(), replaceText(updateAge),
+                closeSoftKeyboard());
 
         ///////////////////////////////////// update gender ////////////////////////////////////////
         if (updateGender.equals("Male")) {
             ViewInteraction appCompatRadioButton1 = onView(
-                    allOf(withId(R.id.radio_btn_male), withText("Gentleman"),
-                            childAtPosition(
-                                    allOf(withId(R.id.radio_group_choose_gender),
-                                            childAtPosition(
-                                                    withId(R.id.cl_details),
-                                                    12)),
-                                    1)));
+                    allOf(withId(R.id.radio_btn_male), withText("Gentleman")));
             appCompatRadioButton1.perform(scrollTo(), click());
         }
         else if (updateGender.equals("Female")) {
             ViewInteraction appCompatRadioButton1 = onView(
-                    allOf(withId(R.id.radio_btn_female), withText("Lady"),
-                            childAtPosition(
-                                    allOf(withId(R.id.radio_group_choose_gender),
-                                            childAtPosition(
-                                                    withId(R.id.cl_details),
-                                                    12)),
-                                    0)));
+                    allOf(withId(R.id.radio_btn_female), withText("Lady")));
             appCompatRadioButton1.perform(scrollTo(), click());
         }
 
         /////////////////////////////////// update phone number ////////////////////////////////////
-        ViewInteraction appCompatEditText10 = onView(
-                allOf(withId(R.id.et_phone_number),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                15)));
-        appCompatEditText10.perform(scrollTo(), replaceText(updatePhoneNumber), closeSoftKeyboard());
+        onView(withId(R.id.et_phone_number)).perform(scrollTo(), replaceText(updatePhoneNumber),
+                closeSoftKeyboard());
 
         //////////////////////////////////////// update bio ////////////////////////////////////////
-        ViewInteraction appCompatEditText11 = onView(
-                allOf(withId(R.id.et_bio),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                19)));
-        appCompatEditText11.perform(scrollTo(), replaceText(updateBio), closeSoftKeyboard());
+        onView(withId(R.id.et_bio)).perform(scrollTo(), replaceText(updateBio), closeSoftKeyboard());
 
     }
     private void pressSaveProfile() {
         ViewInteraction appCompatImageView2 = onView(
-                allOf(withId(R.id.btn_save_profile_as),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_edit_profile_apt_searcher),
-                                        childAtPosition(
-                                                withId(R.id.viewpager_apartment),
-                                                2)),
-                                1),
-                        isDisplayed()));
+                allOf(withId(R.id.btn_save_profile_as), isDisplayed()));
         appCompatImageView2.perform(click());
     }
     private void goToMatchesPageAndBackToEditProfile() {
@@ -286,35 +226,17 @@ public class EditProfileWoutPictureTest {
 
     private void confirmUpdateSucceeded() {
         //////////////////////////////////// check first name /////////////////////////////////////
-        onView(allOf(withId(R.id.et_enter_first_name), withText(updateFirstName),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                4)))
+        onView(allOf(withId(R.id.et_enter_first_name), withText(updateFirstName)))
                 // Assert et_enter_first_name is displayed with updateFirstName
                 .check(matches(isDisplayed()));
 
         ///////////////////////////////////// check last name //////////////////////////////////////
-        onView(allOf(withId(R.id.et_enter_last_name), withText(updateLastName),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                6)))
+        onView(allOf(withId(R.id.et_enter_last_name), withText(updateLastName)))
                 // Assert et_enter_last_name is displayed with updateLastName
                 .check(matches(isDisplayed()));
 
         /////////////////////////////////////// check age //////////////////////////////////////////
-        onView(allOf(withId(R.id.et_enter_age), withText(updateAge),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                9)))
+        onView(allOf(withId(R.id.et_enter_age), withText(updateAge)))
                 // Assert et_enter_age is displayed with updateAge
                 .check(matches(isDisplayed()));
 
@@ -322,65 +244,29 @@ public class EditProfileWoutPictureTest {
         if (updateGender.equals("Male")) {
             // Assert radio_btn_male is displayed and checked,
             // while radio_btn_female is displayed and unchecked.
-            onView(allOf(withId(R.id.radio_btn_male), withText("Gentleman"),
-                            childAtPosition(
-                                    allOf(withId(R.id.radio_group_choose_gender),
-                                            childAtPosition(
-                                                    withId(R.id.cl_details),
-                                                    12)),
-                                    1)))
+            onView(allOf(withId(R.id.radio_btn_male), withText("Gentleman")))
                     .check(matches(isChecked()));
 
-            onView(allOf(withId(R.id.radio_btn_female), withText("Lady"),
-                            childAtPosition(
-                                    allOf(withId(R.id.radio_group_choose_gender),
-                                            childAtPosition(
-                                                    withId(R.id.cl_details),
-                                                    12)),
-                                    0)))
+            onView(allOf(withId(R.id.radio_btn_female), withText("Lady")))
                     .check(matches(isNotChecked()));
         }
         else if (updateGender.equals("Female")) {
             // Assert radio_btn_female is displayed and checked,
             // while radio_btn_male is displayed and unchecked.
-            onView(allOf(withId(R.id.radio_btn_female), withText("Lady"),
-                            childAtPosition(
-                                    allOf(withId(R.id.radio_group_choose_gender),
-                                            childAtPosition(
-                                                    withId(R.id.cl_details),
-                                                    12)),
-                                    0)))
+            onView(allOf(withId(R.id.radio_btn_female), withText("Lady")))
                     .check(matches(isChecked()));
 
-            onView(allOf(withId(R.id.radio_btn_male), withText("Gentleman"),
-                    childAtPosition(
-                            allOf(withId(R.id.radio_group_choose_gender),
-                                    childAtPosition(
-                                            withId(R.id.cl_details),
-                                            12)),
-                            1)))
+            onView(allOf(withId(R.id.radio_btn_male), withText("Gentleman")))
                     .check(matches(isNotChecked()));
         }
 
         /////////////////////////////////// check phone number ////////////////////////////////////
-        onView(allOf(withId(R.id.et_phone_number), withText(updatePhoneNumber),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                15)))
+        onView(allOf(withId(R.id.et_phone_number), withText(updatePhoneNumber)))
                 // Assert et_phone_number is displayed with updatePhoneNumber
                 .check(matches(isDisplayed()));
 
         //////////////////////////////////////// check bio ////////////////////////////////////////
-        onView(allOf(withId(R.id.et_bio), withText(updateBio),
-                        childAtPosition(
-                                allOf(withId(R.id.cl_details),
-                                        childAtPosition(
-                                                withId(R.id.sv_details),
-                                                0)),
-                                19)))
+        onView(allOf(withId(R.id.et_bio), withText(updateBio)))
                 // Assert et_bio is displayed with updateBio
                 .check(matches(isDisplayed()));
 
