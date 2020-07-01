@@ -79,6 +79,9 @@ dependencies {
     //for swipecard
     implementation 'link.fls:swipestack:0.3.0'
 
+    //for Android-Image-Cropper
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
 }
 apply plugin: 'com.google.gms.google-services'
 
