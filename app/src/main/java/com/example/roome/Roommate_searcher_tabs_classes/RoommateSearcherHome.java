@@ -3,6 +3,7 @@ package com.example.roome.Roommate_searcher_tabs_classes;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivityRoommateSearcher;
 import com.example.roome.MyPreferences;
 import com.example.roome.R;
+import com.example.roome.TrashRoommateSearcherActivity;
 import com.example.roome.UsersImageConnector;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateAdditionalInfo;
@@ -266,7 +268,8 @@ public class RoommateSearcherHome extends Fragment {
              */
             @Override
             public void onClick(View view) {
-                // we didn't implement this feature
+                Intent i = new Intent(getContext(), TrashRoommateSearcherActivity.class);
+                startActivity(i);
             }
         });
     }
