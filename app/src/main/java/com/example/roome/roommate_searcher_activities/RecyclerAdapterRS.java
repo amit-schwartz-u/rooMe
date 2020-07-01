@@ -1,4 +1,4 @@
-package com.example.roome;
+package com.example.roome.roommate_searcher_activities;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
-import com.example.roome.user_classes.RoommateSearcherUser;
+import com.example.roome.utils.FirebaseMediate;
+import com.example.roome.utils.UsersImageConnector;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

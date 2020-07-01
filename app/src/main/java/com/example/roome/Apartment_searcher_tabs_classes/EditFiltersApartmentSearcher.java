@@ -22,9 +22,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.roome.FirebaseMediate;
-import com.example.roome.MainActivityApartmentSearcher;
-import com.example.roome.MyPreferences;
+import com.example.roome.utils.FirebaseMediate;
+import com.example.roome.apartment_searcher_activities.MainActivityApartmentSearcher;
+import com.example.roome.general_activities.MyPreferences;
 import com.example.roome.R;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.google.firebase.database.DatabaseReference;

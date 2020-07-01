@@ -1,4 +1,4 @@
-package com.example.roome;
+package com.example.roome.apartment_searcher_activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.roome.R;
+import com.example.roome.apartment_searcher_activities.MainActivityApartmentSearcher;
+import com.example.roome.apartment_searcher_activities.RecyclerAdapter;
+import com.example.roome.general_activities.ChoosingActivity;
 
 import java.util.ArrayList;
 

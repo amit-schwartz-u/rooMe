@@ -2,7 +2,7 @@
 // By Catalin Ghita
 // https://android.jlelse.eu/integrate-espresso-idling-resources-in-your-app-to-build-flexible-ui-tests-c779e24f5057
 
-package com.example.roome;
+package com.example.roome.testing;
 
 import android.annotation.SuppressLint;
 

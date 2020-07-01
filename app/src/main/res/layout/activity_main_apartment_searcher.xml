@@ -5,7 +5,7 @@
     android:id="@+id/rl_main_apt_searcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivityApartmentSearcher">
+    tools:context=".apartment_searcher_activities.MainActivityApartmentSearcher">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs_apartment"
@@ -20,7 +20,7 @@
         app:tabMode="fixed"
         app:tabTextColor="#00D10303" />
 
-    <com.example.roome.CustomViewPager
+    <com.example.roome.utils.CustomViewPager
         android:id="@+id/viewpager_apartment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

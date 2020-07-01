@@ -1,4 +1,4 @@
-package com.example.roome;
+package com.example.roome.roommate_searcher_activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -18,10 +18,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.roome.R;
 import com.example.roome.Roommate_searcher_tabs_classes.EditProfileRoommateSearcher;
 import com.example.roome.Roommate_searcher_tabs_classes.MatchesRoommateSearcher;
 import com.example.roome.Roommate_searcher_tabs_classes.RoommateSearcherHome;
+import com.example.roome.general_activities.ChoosingActivity;
+import com.example.roome.general_activities.MainActivity;
+import com.example.roome.general_activities.MyPreferences;
 import com.example.roome.user_classes.RoommateSearcherUser;
+import com.example.roome.utils.CustomViewPager;
+import com.example.roome.utils.FirebaseMediate;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.FirebaseDatabase;
 

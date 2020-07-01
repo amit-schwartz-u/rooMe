@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    tools:context=".TrashRoommateSearcherActivity">
+    tools:context=".roommate_searcher_activities.TrashRoommateSearcherActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_delete_list_as"

@@ -16,27 +16,27 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:allowBackup,android:supportsRtl">
-        <activity android:name=".TrashRoommateSearcherActivity"></activity>
-        <activity android:name=".TrashApartmentSearcherActivity" />
-        <activity android:name=".SendEmailActivity"></activity>
+        <activity android:name=".roommate_searcher_activities.TrashRoommateSearcherActivity"></activity>
+        <activity android:name=".apartment_searcher_activities.TrashApartmentSearcherActivity" />
+        <activity android:name=".general_activities.SendEmailActivity"></activity>
         <activity android:name=".user_classes.RoommateAdditionalInfo" />
         <activity
             android:name=".Apartment_searcher_tabs_classes.MatchesApartmentSearcher"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivityRoommateSearcher"
+            android:name=".roommate_searcher_activities.MainActivityRoommateSearcher"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivityApartmentSearcher"
+            android:name=".apartment_searcher_activities.MainActivityApartmentSearcher"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".general_activities.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChoosingActivity"
+            android:name=".general_activities.ChoosingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".general_activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action

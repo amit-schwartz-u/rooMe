@@ -13,8 +13,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.roome.UsersImageConnector;
-import com.example.roome.FirebaseMediate;
+import com.example.roome.utils.UsersImageConnector;
+import com.example.roome.utils.FirebaseMediate;
 import com.example.roome.R;
 
 /**

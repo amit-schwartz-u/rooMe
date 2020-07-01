@@ -1,4 +1,4 @@
-package com.example.roome;
+package com.example.roome.general_activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

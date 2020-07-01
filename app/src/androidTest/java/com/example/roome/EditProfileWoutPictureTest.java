@@ -8,7 +8,9 @@ import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+
+import com.example.roome.general_activities.MainActivity;
+import com.example.roome.testing.EspressoIdlingResource;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -17,7 +19,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;

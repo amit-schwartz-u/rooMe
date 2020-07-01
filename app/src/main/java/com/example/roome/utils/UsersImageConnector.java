@@ -1,9 +1,9 @@
-package com.example.roome;
+package com.example.roome.utils;
+
+import com.example.roome.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class binds between roommateId to the house drawable ,

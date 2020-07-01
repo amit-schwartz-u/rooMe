@@ -1,4 +1,4 @@
-package com.example.roome;
+package com.example.roome.general_activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -14,6 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.roome.utils.FirebaseMediate;
+import com.example.roome.apartment_searcher_activities.MainActivityApartmentSearcher;
+import com.example.roome.roommate_searcher_activities.MainActivityRoommateSearcher;
+import com.example.roome.R;
+import com.example.roome.testing.EspressoIdlingResource;
 import com.example.roome.user_classes.Apartment;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.example.roome.user_classes.User;
@@ -37,7 +42,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ChoosingActivity extends AppCompatActivity {
 
-    protected static final int ANIMATION_DELAY_TIME = 500;
+    public static final int ANIMATION_DELAY_TIME = 500;
     /* Firebase instance variables */
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
