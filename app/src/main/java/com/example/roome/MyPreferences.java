@@ -180,6 +180,18 @@ public class MyPreferences {
         preferencesEditor.apply();
     }
 
+    public static void setLastNumberOfMatches(Context context, int size) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        final SharedPreferences.Editor preferencesEditor = reader.edit();
+        preferencesEditor.putInt("matchesListSize", size);
+        preferencesEditor.apply();
+    }
+
+    public static int getLastNumberOfMatches(Context context) {
+        final SharedPreferences reader = getSharedPreferences(context);
+        return reader.getInt("matchesListSize", 0);
+    }
+
     /**
      * getter for IS_FIRST_UNLIKE.
      *

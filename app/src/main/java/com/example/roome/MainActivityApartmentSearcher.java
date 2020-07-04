@@ -1,6 +1,7 @@
 package com.example.roome;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -27,6 +28,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -82,11 +84,10 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
         setupTabIcons();
         addTabLayoutListeners();
         retrieveUserLists();
+        checkIfNewMatchFromLastSession();
         updateUserLists();
     }
-
-
-
+    
     @Override
     protected void onPause() { //todo being called when exiting app?
         super.onPause();
@@ -370,5 +371,34 @@ public class MainActivityApartmentSearcher extends AppCompatActivity {
             getWindow().setExitTransition(slide);
             getWindow().setEnterTransition(slide);
         }
+    }
+
+    private void checkIfNewMatchFromLastSession() {
+        int lastSize = MyPreferences.getLastNumberOfMatches(getApplicationContext());
+        int newSize = allLists.get(ChoosingActivity.MATCH).size();
+        if (newSize>lastSize){
+            startNewMatchDialog();
+        }
+    }
+
+    private void startNewMatchDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("You have a new match!")
+                .setMessage("check you matches tab for new matches")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //do nothing
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        int matchListSize = allLists.get(ChoosingActivity.MATCH).size();
+        MyPreferences.setLastNumberOfMatches(getApplicationContext(), matchListSize);
+        super.onDestroy();
     }
 }
