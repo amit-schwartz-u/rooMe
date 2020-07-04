@@ -9,6 +9,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.roome.general_activities.ChoosingActivity;
+import com.example.roome.general_activities.MainActivity;
+import com.example.roome.general_activities.MyPreferences;
+import com.example.roome.utils.FirebaseMediate;
+
 public class AccountDeleter {
 
     private Context _context;
@@ -46,7 +51,7 @@ public class AccountDeleter {
                     FirebaseMediate.addAptIdToRmtPrefList(ChoosingActivity.DELETE_USERS,roommateId,aptUid);
                 }
                 MyPreferences.resetData(_context);
-                Intent i = new Intent(_context,MainActivity.class);
+                Intent i = new Intent(_context, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 _context.startActivity(i);
             }
