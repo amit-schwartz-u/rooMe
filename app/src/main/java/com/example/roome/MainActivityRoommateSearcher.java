@@ -1,10 +1,16 @@
 package com.example.roome;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Slide;
 import android.view.Gravity;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -23,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -71,6 +78,7 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         }
         retrieveUserLists();
         updateUserLists();
+
 
     }
 
@@ -165,6 +173,12 @@ public class MainActivityRoommateSearcher extends AppCompatActivity {
         adapter.addFragment(new EditProfileRoommateSearcher(), "PROFILE");
         viewPager.setAdapter(adapter);
     }
+
+    public void showSignOutDialog(View view) {
+        AccountDeleter deleter = new AccountDeleter(this,this);
+        deleter.showSignOutDialog();
+    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

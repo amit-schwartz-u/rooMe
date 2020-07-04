@@ -28,6 +28,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.roome.AccountDeleter;
 import com.example.roome.ChoosingActivity;
 import com.example.roome.FirebaseMediate;
 import com.example.roome.MainActivity;
@@ -139,17 +140,7 @@ public class EditProfileRoommateSearcher extends Fragment {
         deleteUserAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String rmtUid = MyPreferences.getUserUid(getContext());
-                FirebaseMediate.deleteRoommateUserFromApp(rmtUid);
-                for (String aptId :
-                        FirebaseMediate.getAllApartmentSearcherKeys())
-                {
-                    FirebaseMediate.addRoommateIdsToAptPrefList(ChoosingActivity.DELETE_USERS,aptId,rmtUid);
-                }
-                MyPreferences.resetData(getContext());
-                Intent i =  new Intent(getActivity(), MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(i);
+                showSignOutDialog();
             }
         });
         addApartmentPhoto.setOnClickListener(new View.OnClickListener() {
@@ -945,5 +936,8 @@ public class EditProfileRoommateSearcher extends Fragment {
         }
     }
 
-
+    public void showSignOutDialog() {
+        AccountDeleter deleter = new AccountDeleter(getContext(),getActivity());
+        deleter.showSignOutDialog();
+    }
 }

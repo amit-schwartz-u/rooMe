@@ -67,6 +67,10 @@
     <string name="it_s_a_match_ngo_to_matches_tab_to_see_more">It\'s a match!\ngo to matches tab to see more</string>
     <string name="delete_account"><u>Delete Account</u></string>
     <string name="contact_us_message">Feel free to contact us via email if you have any suggestions or complaints!</string>
+    <string name="signOutMsg2">Are you sure you want to do this ?</string>
+    <string name="signOutMsg1">This step will delete your account</string>
+    <string name="cancel">cancel</string>
+    <string name="yes">YES</string>
 
 
 </resources>
