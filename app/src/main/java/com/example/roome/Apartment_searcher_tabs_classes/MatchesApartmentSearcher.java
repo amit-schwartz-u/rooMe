@@ -10,13 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.roome.ChoosingActivity;
-import com.example.roome.MainActivityApartmentSearcher;
-import com.example.roome.UsersImageConnector;
-import com.example.roome.FirebaseMediate;
-import com.example.roome.MyPreferences;
+import com.example.roome.general_activities.ChoosingActivity;
+import com.example.roome.apartment_searcher_activities.MainActivityApartmentSearcher;
 import com.example.roome.R;
-import com.example.roome.RecyclerAdapter;
+import com.example.roome.apartment_searcher_activities.RecyclerAdapter;
 
 import java.util.ArrayList;
 

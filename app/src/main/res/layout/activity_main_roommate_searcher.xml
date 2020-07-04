@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivityRoommateSearcher">
+    tools:context=".roommate_searcher_activities.MainActivityRoommateSearcher">
     <!--DON'T CHECK! this part was not implemented-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs_roomate"
@@ -19,7 +19,7 @@
         app:tabMode="fixed"
         app:tabTextColor="#00D10303" />
 
-    <com.example.roome.CustomViewPager
+    <com.example.roome.utils.CustomViewPager
         android:id="@+id/viewpager_roomate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

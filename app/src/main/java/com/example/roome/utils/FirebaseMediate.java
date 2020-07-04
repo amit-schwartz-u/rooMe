@@ -1,4 +1,4 @@
-package com.example.roome;
+package com.example.roome.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.roome.general_activities.ChoosingActivity;
+import com.example.roome.general_activities.MyPreferences;
 import com.example.roome.user_classes.ApartmentSearcherUser;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.android.gms.tasks.OnFailureListener;

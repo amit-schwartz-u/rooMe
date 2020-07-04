@@ -5,7 +5,7 @@
     android:id="@+id/cl_choosing_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChoosingActivity">
+    tools:context=".general_activities.ChoosingActivity">
 
     <TextView
         android:id="@+id/tv_hello_name"

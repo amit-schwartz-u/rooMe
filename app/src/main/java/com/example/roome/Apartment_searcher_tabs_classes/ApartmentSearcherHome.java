@@ -18,13 +18,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.roome.ChoosingActivity;
-import com.example.roome.FirebaseMediate;
-import com.example.roome.MainActivityApartmentSearcher;
-import com.example.roome.MyPreferences;
+import com.example.roome.general_activities.ChoosingActivity;
+import com.example.roome.utils.FirebaseMediate;
+import com.example.roome.apartment_searcher_activities.MainActivityApartmentSearcher;
+import com.example.roome.general_activities.MyPreferences;
 import com.example.roome.R;
-import com.example.roome.TrashApartmentSearcherActivity;
-import com.example.roome.UsersImageConnector;
+import com.example.roome.apartment_searcher_activities.TrashApartmentSearcherActivity;
+import com.example.roome.utils.UsersImageConnector;
 import com.example.roome.user_classes.ApartmentAdditionalInfo;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.google.firebase.database.ChildEventListener;
@@ -80,7 +80,7 @@ public class ApartmentSearcherHome extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseDatabaseReference = mFirebaseDatabase.getReference();
-        boolean isFirstTime = MyPreferences.isFirstTime(getContext()); // todo
+        boolean isFirstTime = MyPreferences.isFirstTime(getContext());
         //if we want to do something if its the first time?
         if (isFirstTime) {
             MyPreferences.setIsFirstTimeToFalse(getContext());
@@ -361,7 +361,7 @@ public class ApartmentSearcherHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        }); //todo maybe delete this
+        });
         firebaseDatabaseReference.child("preferences").child(
                 "ApartmentSearcherUser").child(getUserUid()).child(ChoosingActivity.NOT_SEEN).addValueEventListener(new ValueEventListener() {
             @Override
@@ -380,7 +380,7 @@ public class ApartmentSearcherHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });//todo maybe delete this
+        });
     }
 
     /**

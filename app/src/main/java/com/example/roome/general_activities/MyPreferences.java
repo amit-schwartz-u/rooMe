@@ -1,4 +1,4 @@
-package com.example.roome;
+package com.example.roome.general_activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -71,8 +71,8 @@
             <TextView
                 android:id="@+id/tv_first_name"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginStart="28dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:gravity="start|center"
@@ -85,27 +85,28 @@
 
             <EditText
                 android:id="@+id/et_enter_first_name"
-                android:layout_width="244dp"
-                android:layout_height="35dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:height="45dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_first_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_first_name"
-                app:layout_constraintTop_toBottomOf="@+id/iv_missingPhoto"
-                android:importantForAutofill="no" />
+                app:layout_constraintTop_toTopOf="@+id/tv_first_name" />
 
             <TextView
                 android:id="@+id/tv_last_name"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginStart="28dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:gravity="start|center"
                 android:text="@string/last_name"
@@ -118,20 +119,23 @@
 
             <EditText
                 android:id="@+id/et_enter_last_name"
-                android:layout_width="244dp"
-                android:layout_height="35dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="3dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
                 android:inputType="text"
                 android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_last_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_last_name"
-                app:layout_constraintTop_toBottomOf="@+id/et_enter_first_name" />
+                app:layout_constraintTop_toTopOf="@+id/tv_last_name" />
 
             <View
+                android:id="@+id/view"
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
@@ -143,7 +147,7 @@
                 android:id="@+id/tv_age"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
@@ -156,21 +160,22 @@
 
             <EditText
                 android:id="@+id/et_enter_age"
-                android:layout_width="309dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
                 android:inputType="numberSigned|number|textPersonName"
                 android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_age"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_age"
-                app:layout_constraintTop_toBottomOf="@+id/et_enter_last_name" />
+                app:layout_constraintTop_toTopOf="@+id/tv_age" />
 
             <View
+                android:id="@+id/view2"
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
@@ -183,8 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="start|left"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="24dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
                 android:gravity="start|left"
@@ -194,23 +198,22 @@
                 android:textSize="20sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
-                app:layout_constraintTop_toBottomOf="@+id/tv_age" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <RadioGroup
                 android:id="@+id/radio_group_choose_gender"
-                android:layout_width="320dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:height="45dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center|start|right|top"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_gender_label"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
-                app:layout_constraintTop_toBottomOf="@+id/et_enter_age">
+                app:layout_constraintTop_toTopOf="@+id/tv_gender_label">
 
 
                 <RadioButton
@@ -225,7 +228,7 @@
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorHighlight="#FFC107"
                     android:textColorLink="#4CAF50"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_male"
@@ -233,11 +236,11 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/peach"
                     android:fontFamily="sans-serif"
-                    android:paddingEnd="12dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/gentleman"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_other"
@@ -245,15 +248,15 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/peach"
                     android:fontFamily="sans-serif"
-                    android:paddingEnd="12dp"
                     android:text="Other"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </RadioGroup>
 
             <View
+                android:id="@+id/view3"
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
@@ -264,7 +267,7 @@
                 android:id="@+id/tv_phoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
@@ -280,18 +283,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
                 android:inputType="phone"
                 android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_phoneNumber"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_phoneNumber"
-                app:layout_constraintTop_toBottomOf="@+id/radio_group_choose_gender" />
+                app:layout_constraintTop_toTopOf="@+id/tv_phoneNumber" />
 
             <View
+                android:id="@+id/view4"
                 style="@style/Divider.Horizontal"
                 android:layout_height="1dp"
                 android:layout_marginTop="6dp"
@@ -311,8 +315,7 @@
                 android:id="@+id/tv_additional_info"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="24dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:text="@string/bio"
@@ -320,19 +323,20 @@
                 android:textSize="20sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
-                app:layout_constraintTop_toBottomOf="@+id/tv_phoneNumber" />
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
 
             <EditText
                 android:id="@+id/et_bio"
                 android:layout_width="355dp"
                 android:layout_height="215dp"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/ic_bio_back"
                 android:capitalize="sentences"
                 android:fontFamily="sans-serif"
                 android:gravity="start|center_horizontal"
                 android:hint="@string/some_words_about_myself"
+                android:importantForAutofill="no"
                 android:includeFontPadding="false"
                 android:inputType="textMultiLine|textImeMultiLine"
                 android:maxLines="7"
@@ -341,7 +345,6 @@
                 android:paddingEnd="5dp"
                 android:textColor="@color/gray"
                 android:textSize="20sp"
-                android:importantForAutofill="no"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/tv_additional_info" />
 
