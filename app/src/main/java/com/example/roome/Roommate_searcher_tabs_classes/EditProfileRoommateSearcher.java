@@ -29,20 +29,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.roome.AccountDeleter;
-import com.example.roome.ChoosingActivity;
-import com.example.roome.FirebaseMediate;
-import com.example.roome.MainActivity;
-import com.example.roome.MainActivityRoommateSearcher;
-import com.example.roome.MyPreferences;
-import com.example.roome.general_activities.ChoosingActivity;
-import com.example.roome.utils.FirebaseMediate;
-import com.example.roome.general_activities.MainActivity;
-import com.example.roome.roommate_searcher_activities.MainActivityRoommateSearcher;
-import com.example.roome.general_activities.MyPreferences;
 import com.example.roome.R;
+import com.example.roome.general_activities.MyPreferences;
+import com.example.roome.roommate_searcher_activities.MainActivityRoommateSearcher;
 import com.example.roome.user_classes.Apartment;
 import com.example.roome.user_classes.RoommateSearcherUser;
 import com.example.roome.user_classes.User;
+import com.example.roome.utils.FirebaseMediate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,7 +44,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Calendar;
 
