@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_details"
             android:layout_width="match_parent"
@@ -33,9 +32,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="4dp"
-                android:text="Contact us"
                 android:backgroundTint="@color/peach"
                 android:fontFamily="sans-serif"
+                android:text="Contact us"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -200,60 +199,67 @@
                 app:layout_constraintStart_toStartOf="@+id/cl_details"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-            <RadioGroup
+            <HorizontalScrollView
                 android:id="@+id/radio_group_choose_gender"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:height="45dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center|start|right|top"
-                android:orientation="horizontal"
-                android:paddingTop="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_gender_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
-                app:layout_constraintTop_toTopOf="@+id/tv_gender_label">
+                app:layout_constraintTop_toTopOf="@+id/tv_gender_label"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
-
-                <RadioButton
-                    android:id="@+id/radio_btn_female"
+                <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/peach"
-                    android:checked="true"
+                    android:layout_marginEnd="10dp"
+                    android:height="45dp"
                     android:fontFamily="sans-serif"
-                    android:paddingEnd="10dp"
-                    android:text="@string/lady"
-                    android:textColor="@android:color/secondary_text_light"
-                    android:textColorHighlight="#FFC107"
-                    android:textColorLink="#4CAF50"
-                    android:textSize="18sp" />
+                    android:gravity="center|start|right|top"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp">
 
-                <RadioButton
-                    android:id="@+id/radio_btn_male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/peach"
-                    android:fontFamily="sans-serif"
-                    android:paddingEnd="10dp"
-                    android:text="@string/gentleman"
-                    android:textColor="@android:color/secondary_text_light"
-                    android:textColorLink="#4CAF50"
-                    android:textSize="18sp" />
 
-                <RadioButton
-                    android:id="@+id/radio_btn_other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/peach"
-                    android:fontFamily="sans-serif"
-                    android:text="Other"
-                    android:textColor="@android:color/secondary_text_light"
-                    android:textColorLink="#4CAF50"
-                    android:textSize="18sp" />
+                    <RadioButton
+                        android:id="@+id/radio_btn_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/peach"
+                        android:checked="true"
+                        android:fontFamily="sans-serif"
+                        android:paddingEnd="10dp"
+                        android:text="@string/lady"
+                        android:textColor="@android:color/secondary_text_light"
+                        android:textColorHighlight="#FFC107"
+                        android:textColorLink="#4CAF50"
+                        android:textSize="18sp" />
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/radio_btn_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/peach"
+                        android:fontFamily="sans-serif"
+                        android:paddingEnd="10dp"
+                        android:text="@string/gentleman"
+                        android:textColor="@android:color/secondary_text_light"
+                        android:textColorLink="#4CAF50"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_btn_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/peach"
+                        android:fontFamily="sans-serif"
+                        android:text="Other"
+                        android:textColor="@android:color/secondary_text_light"
+                        android:textColorLink="#4CAF50"
+                        android:textSize="18sp" />
+
+                </RadioGroup>
+            </HorizontalScrollView>
 
             <View
                 android:id="@+id/view3"
