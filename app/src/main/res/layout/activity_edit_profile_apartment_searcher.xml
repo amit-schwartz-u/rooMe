@@ -401,6 +401,3 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_save_profile_as"
         app:layout_constraintStart_toStartOf="@+id/btn_save_profile_as"
         app:layout_constraintTop_toTopOf="@+id/btn_save_profile_as" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
