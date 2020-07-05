@@ -177,14 +177,6 @@ public class EditProfileApartmentSearcher extends Fragment {
                 }
             }
         });
-        Button deleteUserAccount =
-                getView().findViewById(R.id.btn_delete_as_user);
-        deleteUserAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSignOutDialog();
-            }
-        });
         addRedStarToTextView(R.id.tv_age,"Age");
         addRedStarToTextView(R.id.tv_phoneNumber,"Phone number");
         validateUserInput();
