@@ -105,8 +105,18 @@ public class ApartmentSearcherHome extends Fragment {
 //        setFirebaseListeners();  //todo include this line
         retrieveRelevantRoommateSearchers();
         swipeOnCreate();
+        setDialogDismissListener();
         moreHouses();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    private void setDialogDismissListener() {
+        additionalInfoDialog.setOnDismissListener(new ApartmentAdditionalInfo.onDismissListener() {
+            @Override
+            public void onDismiss() {
+                flingContainer.enable();
+            }
+        });
     }
 
     /**
@@ -125,6 +135,7 @@ public class ApartmentSearcherHome extends Fragment {
              */
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
+                flingContainer.disable(); //now we can't press twice until dialog completion
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.fl_background).setAlpha(0);
                 myAppAdapter.notifyDataSetChanged();
