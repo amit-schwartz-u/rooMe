@@ -1,8 +1,10 @@
 package com.example.roome.user_classes;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
@@ -16,11 +18,13 @@ import android.widget.TextView;
 import com.example.roome.utils.UsersImageConnector;
 import com.example.roome.utils.FirebaseMediate;
 import com.example.roome.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 
 /**
  * A class representing a ApartmentAdditionalInfo - user apartment additional info.
  */
 public class ApartmentAdditionalInfo extends DialogFragment {
+    private onDismissListener listener;
     private ImageView exitOption,aptImg;
     private TextView additionalInfo, numOfRoommates, neighborhood, price;
 
@@ -95,5 +99,20 @@ public class ApartmentAdditionalInfo extends DialogFragment {
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             window.setAttributes(params);
         }
+    }
+
+    public static interface onDismissListener
+    {
+        public abstract void onDismiss();
+    }
+
+    public void setOnDismissListener(onDismissListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        listener.onDismiss();
     }
 }
