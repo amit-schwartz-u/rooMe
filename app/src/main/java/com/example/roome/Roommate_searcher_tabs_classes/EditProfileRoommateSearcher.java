@@ -432,6 +432,9 @@ public class EditProfileRoommateSearcher extends Fragment {
                 else if(month < calender.get(Calendar.MONTH)){
                     showPastDialog();
                 }
+                else if(day < calender.get(Calendar.DAY_OF_MONTH)){
+                    showPastDialog();
+                }
                 else {
                     String date = day + "/" + month + "/" + year;
                     chosenDate.setText(date);
