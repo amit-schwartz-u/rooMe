@@ -425,9 +425,20 @@ public class EditProfileRoommateSearcher extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                chosenDate.setText(date);
-                userApartment.setEntryDate(date);
+                Calendar calender = Calendar.getInstance();
+                if(year < calender.get(Calendar.YEAR)){
+                    Context context = getContext();
+                    CharSequence text = "Forget about the past, look at the future!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+                else {
+                    String date = day + "/" + month + "/" + year;
+                    chosenDate.setText(date);
+                    userApartment.setEntryDate(date);
+                }
             }
         };
     }
