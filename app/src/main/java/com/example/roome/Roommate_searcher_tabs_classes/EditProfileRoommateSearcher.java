@@ -331,11 +331,21 @@ public class EditProfileRoommateSearcher extends Fragment {
         if (valid) {
             return new Validation(true, "");
         }
-        if (!isUserFirstNameValid) {
-            message = errorMessage("First Name");
+
+        if (!isMaxRoommateAgeValid) {
+            message = errorMessage("Maximum roomate age");
+        }
+        if (!isMinRoommateAgeValid) {
+            message = errorMessage("Minimum roomate age");
+        }
+        if (!isRentValid) {
+            message = errorMessage("rent amount");
         }
         if (!isUserLastNameValid) {
             message = errorMessage("Last Name");
+        }
+        if (!isUserFirstNameValid) {
+            message = errorMessage("First Name");
         }
         if (!isUserAgeValid) {
             message = errorMessage("Age");
@@ -343,17 +353,11 @@ public class EditProfileRoommateSearcher extends Fragment {
         if (!isUserPhoneValid) {
             message = errorMessage("Phone");
         }
-        if (!isRentValid) {
-            message = errorMessage("rent amount");
-        }
-        if (!isMinRoommateAgeValid) {
-            message = errorMessage("Minimum roomate age");
-        }
         return new Validation(false, message);
     }
 
     private String errorMessage(String field) {
-        return String.format("%s is absent or invalid", field);
+        return String.format("The %s field is missing or invalid", field);
     }
 
     public void uploadApartmentPhotoOnClick() {
