@@ -3,6 +3,7 @@ package com.example.roome.Roommate_searcher_tabs_classes;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -489,10 +491,22 @@ public class EditProfileRoommateSearcher extends Fragment {
                     return;
                 }
                 if (inputLength != 0) {
-                    Double rent = Double.parseDouble(rentEditText.getText().toString());
-                    if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
-                        userApartment.setRent(rent);
-                        isRentValid = true;
+                    String inputText = rentEditText.getText().toString();
+                    if(inputText.equals("-")){
+                        Context context = getContext();
+                        CharSequence text = "You can't enter a negative number!\nGetting payed for renting an apartment?! Come on...";
+                        int duration = Toast.LENGTH_LONG;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        rentEditText.setText("");
+                    }
+                    else {
+                        Double rent = Double.parseDouble(inputText);
+                        if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
+                            userApartment.setRent(rent);
+                            isRentValid = true;
+                        }
                     }
                 }
             }
