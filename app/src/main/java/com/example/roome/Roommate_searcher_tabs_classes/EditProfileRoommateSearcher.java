@@ -501,6 +501,9 @@ public class EditProfileRoommateSearcher extends Fragment {
                         toast.show();
                         rentEditText.setText("");
                     }
+                    else if(inputText.equals("+")){
+                        rentEditText.setText("");
+                    }
                     else {
                         Double rent = Double.parseDouble(inputText);
                         if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
