@@ -114,14 +114,16 @@ public class EditProfileRoommateSearcher extends Fragment {
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isUserInputValid()) {
+                Validation validation = UserInputValidation();
+                if (validation.getIsValid()) {
                     saveUserDataToDataBase();
                     Intent i = new Intent(EditProfileRoommateSearcher.this.getActivity(), MainActivityRoommateSearcher.class);
                     startActivity(i);
                 } else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                     dialog.setTitle("Oops!");
-                    dialog.setMessage("we can see that you have some unfilled or invalid fields. please take a look again before saving");
+                    String message = String.format("%s. Please take a look again before saving", validation.getMessage() );
+                    dialog.setMessage(message);
 
                     dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -322,8 +324,36 @@ public class EditProfileRoommateSearcher extends Fragment {
     /**
      * Returns a boolean if all of the user's input is valid
      */
-    private boolean isUserInputValid() {
-        return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid && isRentValid && isMinRoommateAgeValid && isMaxRoommateAgeValid;
+    private Validation UserInputValidation() {
+        String message = "";
+        boolean valid = isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid && isRentValid && isMinRoommateAgeValid && isMaxRoommateAgeValid;
+
+        if (valid) {
+            return new Validation(true, "");
+        }
+        if (!isUserFirstNameValid) {
+            message = errorMessage("First Name");
+        }
+        if (!isUserLastNameValid) {
+            message = errorMessage("Last Name");
+        }
+        if (!isUserAgeValid) {
+            message = errorMessage("Age");
+        }
+        if (!isUserPhoneValid) {
+            message = errorMessage("Phone");
+        }
+        if (!isRentValid) {
+            message = errorMessage("rent amount");
+        }
+        if (!isMinRoommateAgeValid) {
+            message = errorMessage("Minimum roomate age");
+        }
+        return new Validation(false, message);
+    }
+
+    private String errorMessage(String field) {
+        return String.format("%s is absent or invalid", field);
     }
 
     public void uploadApartmentPhotoOnClick() {
@@ -936,5 +966,23 @@ public class EditProfileRoommateSearcher extends Fragment {
     public void showSignOutDialog() {
         AccountDeleter deleter = new AccountDeleter(getContext(),getActivity());
         deleter.showSignOutDialog();
+    }
+
+    final class Validation {
+        private Boolean isValid;
+        private String message;
+
+        public Validation( Boolean isValid, String Message) {
+            this.isValid = isValid;
+            this.message = Message;
+        }
+
+        public Boolean getIsValid() {
+            return isValid;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 }
