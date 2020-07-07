@@ -81,6 +81,7 @@ public class EditProfileApartmentSearcher extends Fragment {
     ImageView profilePic;
     ImageView addProfilePic;
     final long ONE_MEGABYTE = 1024 * 1024;
+    final String NUMERIC_REGEX = "[-+]?\\d*\\.?\\d+";
     private Uri selectedImage;
 
     ImageView phoneInfoButton;
@@ -459,10 +460,12 @@ public class EditProfileApartmentSearcher extends Fragment {
                     return;
                 }
                 if (inputLength != 0) {
-                    int curAge = Integer.parseInt(ageEditText.getText().toString());
-                    if (curAge <= User.MAXIMUM_AGE && curAge >= User.MINIMUM_AGE) {
-                        asUser.setAge(Integer.parseInt(ageEditText.getText().toString()));
-                        isUserAgeValid = true;
+                    if (ageEditText.getText().toString().matches(NUMERIC_REGEX)) {
+                        int curAge = Integer.parseInt(ageEditText.getText().toString());
+                        if (curAge <= User.MAXIMUM_AGE && curAge >= User.MINIMUM_AGE) {
+                            asUser.setAge(Integer.parseInt(ageEditText.getText().toString()));
+                            isUserAgeValid = true;
+                        }
                     }
                 }
             }
@@ -482,6 +485,10 @@ public class EditProfileApartmentSearcher extends Fragment {
                     }
                     if (inputLength > User.MAXIMUM_AGE_LENGTH) {
                         ageEditText.setError("Maximum Limit Reached!");
+                        return;
+                    }
+                    if (!ageEditText.getText().toString().matches(NUMERIC_REGEX)) {
+                        ageEditText.setError("Age is invalid!");
                         return;
                     }
                     int curAge = Integer.parseInt(ageEditText.getText().toString());
