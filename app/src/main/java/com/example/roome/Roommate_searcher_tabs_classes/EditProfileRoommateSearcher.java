@@ -427,18 +427,25 @@ public class EditProfileRoommateSearcher extends Fragment {
                 month = month + 1;
                 Calendar calender = Calendar.getInstance();
                 if(year < calender.get(Calendar.YEAR)){
-                    Context context = getContext();
-                    CharSequence text = "Forget about the past, look at the future!";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    showPastDialog();
+                }
+                else if(month < calender.get(Calendar.MONTH)){
+                    showPastDialog();
                 }
                 else {
                     String date = day + "/" + month + "/" + year;
                     chosenDate.setText(date);
                     userApartment.setEntryDate(date);
                 }
+            }
+
+            private void showPastDialog() {
+                Context context = getContext();
+                CharSequence text = "Forget about the past, look at the future!";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         };
     }
