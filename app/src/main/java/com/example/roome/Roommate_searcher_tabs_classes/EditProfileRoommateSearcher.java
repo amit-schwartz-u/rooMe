@@ -3,6 +3,7 @@ package com.example.roome.Roommate_searcher_tabs_classes;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -457,9 +459,30 @@ public class EditProfileRoommateSearcher extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                chosenDate.setText(date);
-                userApartment.setEntryDate(date);
+                Calendar calender = Calendar.getInstance();
+                if(year < calender.get(Calendar.YEAR)){
+                    showPastDialog();
+                }
+                else if(month < calender.get(Calendar.MONTH)){
+                    showPastDialog();
+                }
+                else if(day < calender.get(Calendar.DAY_OF_MONTH)){
+                    showPastDialog();
+                }
+                else {
+                    String date = day + "/" + month + "/" + year;
+                    chosenDate.setText(date);
+                    userApartment.setEntryDate(date);
+                }
+            }
+
+            private void showPastDialog() {
+                Context context = getContext();
+                CharSequence text = "Forget about the past, look at the future!";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         };
     }
@@ -523,10 +546,25 @@ public class EditProfileRoommateSearcher extends Fragment {
                     return;
                 }
                 if (inputLength != 0) {
-                    Double rent = Double.parseDouble(rentEditText.getText().toString());
-                    if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
-                        userApartment.setRent(rent);
-                        isRentValid = true;
+                    String inputText = rentEditText.getText().toString();
+                    if(inputText.equals("-")){
+                        Context context = getContext();
+                        CharSequence text = "You can't enter a negative number!\nGetting payed for renting an apartment?! Come on...";
+                        int duration = Toast.LENGTH_LONG;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        rentEditText.setText("");
+                    }
+                    else if(inputText.equals("+")){
+                        rentEditText.setText("");
+                    }
+                    else {
+                        Double rent = Double.parseDouble(inputText);
+                        if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
+                            userApartment.setRent(rent);
+                            isRentValid = true;
+                        }
                     }
                 }
             }
