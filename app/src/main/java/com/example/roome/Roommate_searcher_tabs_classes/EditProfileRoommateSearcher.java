@@ -803,10 +803,12 @@ public class EditProfileRoommateSearcher extends Fragment {
                     return;
                 }
                 if (inputLength != 0) {
-                    int curAge = Integer.parseInt(ageEditText.getText().toString());
-                    if (curAge <= User.MAXIMUM_AGE && curAge >= User.MINIMUM_AGE) {
-                        roommateSearcherUser.setAge(Integer.parseInt(ageEditText.getText().toString()));
-                        isUserAgeValid = true;
+                    if (ageEditText.getText().toString().compareTo("-") != 0) {
+                        int curAge = Integer.parseInt(ageEditText.getText().toString());
+                        if (curAge <= User.MAXIMUM_AGE && curAge >= User.MINIMUM_AGE) {
+                            roommateSearcherUser.setAge(Integer.parseInt(ageEditText.getText().toString()));
+                            isUserAgeValid = true;
+                        }
                     }
                 }
             }
@@ -826,6 +828,10 @@ public class EditProfileRoommateSearcher extends Fragment {
                     }
                     if (inputLength > User.MAXIMUM_AGE_LENGTH) {
                         ageEditText.setError("Maximum Limit Reached!");
+                        return;
+                    }
+                    if (ageEditText.getText().toString().compareTo("-") == 0) {
+                        ageEditText.setError("Age is not valid!");
                         return;
                     }
                     int curAge = Integer.parseInt(ageEditText.getText().toString());
