@@ -228,7 +228,7 @@
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorHighlight="#FFC107"
                     android:textColorLink="#4CAF50"
-                    android:textSize="18sp" />
+                    android:textSize="13dp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_male"
@@ -240,7 +240,7 @@
                     android:text="@string/gentleman"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
-                    android:textSize="18sp" />
+                    android:textSize="13dp" />
 
                 <RadioButton
                     android:id="@+id/radio_btn_other"
@@ -251,7 +251,7 @@
                     android:text="Other"
                     android:textColor="@android:color/secondary_text_light"
                     android:textColorLink="#4CAF50"
-                    android:textSize="18sp" />
+                    android:textSize="13dp" />
 
             </RadioGroup>
 
@@ -282,8 +282,9 @@
                 android:id="@+id/et_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:fontFamily="sans-serif"
@@ -306,6 +307,7 @@
                 android:id="@+id/iv_phone_info_btn"
                 android:layout_width="23dp"
                 android:layout_height="25dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintBottom_toBottomOf="@+id/et_phone_number"
                 app:layout_constraintEnd_toEndOf="@+id/et_phone_number"
                 app:layout_constraintTop_toTopOf="@+id/et_phone_number"
@@ -327,14 +329,14 @@
 
             <EditText
                 android:id="@+id/et_bio"
-                android:layout_width="355dp"
+                android:layout_width="300dp"
                 android:layout_height="215dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="41dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/ic_bio_back"
                 android:capitalize="sentences"
                 android:fontFamily="sans-serif"
-                android:gravity="start|center_horizontal"
+                android:gravity="center_horizontal"
                 android:hint="@string/some_words_about_myself"
                 android:importantForAutofill="no"
                 android:includeFontPadding="false"
@@ -342,7 +344,6 @@
                 android:maxLines="7"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
-                android:paddingEnd="5dp"
                 android:textColor="@color/gray"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/cl_details"

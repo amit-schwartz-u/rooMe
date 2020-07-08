@@ -46,6 +46,10 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
 
 /**
  * This class represents the profile fragment in the app. The Apartment Searcher user can edit his
@@ -542,6 +546,28 @@ public class EditProfileApartmentSearcher extends Fragment {
         });
     }
 
+    public boolean check_valid_phone_number(String phone){
+        String [] valid_phone_prefix= {"050","051","052","053",
+                "054","056","058","059",
+                "0552","0553","05544","0555","0556","0557","0558","0559"};
+
+        //check proper number length:
+        if (phone.length() == User.PHONE_NUMBER_LENGTH){
+            boolean result = false;
+
+            // Check for each prefix element
+            for (int i = 0; i < valid_phone_prefix.length; i++) {
+                if (phone.startsWith(valid_phone_prefix[i])) {
+                    result = true;
+                    break;
+                }
+            }
+            if(result){
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * validating the PhoneNumber entered.
      */
@@ -554,13 +580,22 @@ public class EditProfileApartmentSearcher extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
+
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int inputLength = phoneNumberEditText.getText().toString().length();
-                if (inputLength == User.PHONE_NUMBER_LENGTH) {
+//                int inputLength = phoneNumberEditText.getText().toString().length();
+//                if (inputLength == User.PHONE_NUMBER_LENGTH) {
+//                    asUser.setPhoneNumber(phoneNumberEditText.getText().toString());
+//                    isUserPhoneValid = true;
+//                }
+                String phone_input = phoneNumberEditText.getText().toString();
+
+                if (check_valid_phone_number(phone_input)) {
                     asUser.setPhoneNumber(phoneNumberEditText.getText().toString());
                     isUserPhoneValid = true;
                 }
+
             }
 
             @Override
@@ -571,12 +606,14 @@ public class EditProfileApartmentSearcher extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    int inputLength = phoneNumberEditText.getText().toString().length();
+                    String input_phone = phoneNumberEditText.getText().toString();
+                    int inputLength = input_phone.length();
+
                     if (inputLength == 0) {
                         phoneNumberEditText.setError("Phone number is required!");
                         return;
                     }
-                    if (inputLength != User.PHONE_NUMBER_LENGTH) {
+                    if (! check_valid_phone_number(input_phone)) {
                         phoneNumberEditText.setError("Invalid phone number");
                         return;
                     }
