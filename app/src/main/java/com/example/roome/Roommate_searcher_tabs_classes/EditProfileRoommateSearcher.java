@@ -3,6 +3,7 @@ package com.example.roome.Roommate_searcher_tabs_classes;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -114,14 +116,16 @@ public class EditProfileRoommateSearcher extends Fragment {
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isUserInputValid()) {
+                Validation validation = UserInputValidation();
+                if (validation.getIsValid()) {
                     saveUserDataToDataBase();
                     Intent i = new Intent(EditProfileRoommateSearcher.this.getActivity(), MainActivityRoommateSearcher.class);
                     startActivity(i);
                 } else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                     dialog.setTitle("Oops!");
-                    dialog.setMessage("we can see that you have some unfilled or invalid fields. please take a look again before saving");
+                    String message = String.format("%s. Please take a look again before saving", validation.getMessage() );
+                    dialog.setMessage(message);
 
                     dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -322,8 +326,40 @@ public class EditProfileRoommateSearcher extends Fragment {
     /**
      * Returns a boolean if all of the user's input is valid
      */
-    private boolean isUserInputValid() {
-        return isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid && isRentValid && isMinRoommateAgeValid && isMaxRoommateAgeValid;
+    private Validation UserInputValidation() {
+        String message = "";
+        boolean valid = isUserFirstNameValid && isUserLastNameValid && isUserAgeValid && isUserPhoneValid && isRentValid && isMinRoommateAgeValid && isMaxRoommateAgeValid;
+
+        if (valid) {
+            return new Validation(true, "");
+        }
+
+        if (!isMaxRoommateAgeValid) {
+            message = errorMessage("Maximum roomate age");
+        }
+        if (!isMinRoommateAgeValid) {
+            message = errorMessage("Minimum roomate age");
+        }
+        if (!isRentValid) {
+            message = errorMessage("rent amount");
+        }
+        if (!isUserLastNameValid) {
+            message = errorMessage("Last Name");
+        }
+        if (!isUserFirstNameValid) {
+            message = errorMessage("First Name");
+        }
+        if (!isUserAgeValid) {
+            message = errorMessage("Age");
+        }
+        if (!isUserPhoneValid) {
+            message = errorMessage("Phone");
+        }
+        return new Validation(false, message);
+    }
+
+    private String errorMessage(String field) {
+        return String.format("The %s field is missing or invalid", field);
     }
 
     public void uploadApartmentPhotoOnClick() {
@@ -423,9 +459,30 @@ public class EditProfileRoommateSearcher extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                chosenDate.setText(date);
-                userApartment.setEntryDate(date);
+                Calendar calender = Calendar.getInstance();
+                if(year < calender.get(Calendar.YEAR)){
+                    showPastDialog();
+                }
+                else if(month < calender.get(Calendar.MONTH)){
+                    showPastDialog();
+                }
+                else if(day < calender.get(Calendar.DAY_OF_MONTH)){
+                    showPastDialog();
+                }
+                else {
+                    String date = day + "/" + month + "/" + year;
+                    chosenDate.setText(date);
+                    userApartment.setEntryDate(date);
+                }
+            }
+
+            private void showPastDialog() {
+                Context context = getContext();
+                CharSequence text = "Forget about the past, look at the future!";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         };
     }
@@ -489,10 +546,25 @@ public class EditProfileRoommateSearcher extends Fragment {
                     return;
                 }
                 if (inputLength != 0) {
-                    Double rent = Double.parseDouble(rentEditText.getText().toString());
-                    if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
-                        userApartment.setRent(rent);
-                        isRentValid = true;
+                    String inputText = rentEditText.getText().toString();
+                    if(inputText.equals("-")){
+                        Context context = getContext();
+                        CharSequence text = "You can't enter a negative number!\nGetting payed for renting an apartment?! Come on...";
+                        int duration = Toast.LENGTH_LONG;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        rentEditText.setText("");
+                    }
+                    else if(inputText.equals("+")){
+                        rentEditText.setText("");
+                    }
+                    else {
+                        Double rent = Double.parseDouble(inputText);
+                        if (rent <= Apartment.MAX_RENT && rent >= Apartment.MIN_RENT) {
+                            userApartment.setRent(rent);
+                            isRentValid = true;
+                        }
                     }
                 }
             }
@@ -769,10 +841,12 @@ public class EditProfileRoommateSearcher extends Fragment {
                     return;
                 }
                 if (inputLength != 0) {
-                    int curAge = Integer.parseInt(ageEditText.getText().toString());
-                    if (curAge <= User.MAXIMUM_AGE && curAge >= User.MINIMUM_AGE) {
-                        roommateSearcherUser.setAge(Integer.parseInt(ageEditText.getText().toString()));
-                        isUserAgeValid = true;
+                    if (ageEditText.getText().toString().compareTo("-") != 0) {
+                        int curAge = Integer.parseInt(ageEditText.getText().toString());
+                        if (curAge <= User.MAXIMUM_AGE && curAge >= User.MINIMUM_AGE) {
+                            roommateSearcherUser.setAge(Integer.parseInt(ageEditText.getText().toString()));
+                            isUserAgeValid = true;
+                        }
                     }
                 }
             }
@@ -792,6 +866,10 @@ public class EditProfileRoommateSearcher extends Fragment {
                     }
                     if (inputLength > User.MAXIMUM_AGE_LENGTH) {
                         ageEditText.setError("Maximum Limit Reached!");
+                        return;
+                    }
+                    if (ageEditText.getText().toString().compareTo("-") == 0) {
+                        ageEditText.setError("Age is not valid!");
                         return;
                     }
                     int curAge = Integer.parseInt(ageEditText.getText().toString());
@@ -936,5 +1014,23 @@ public class EditProfileRoommateSearcher extends Fragment {
     public void showSignOutDialog() {
         AccountDeleter deleter = new AccountDeleter(getContext(),getActivity());
         deleter.showSignOutDialog();
+    }
+
+    final class Validation {
+        private Boolean isValid;
+        private String message;
+
+        public Validation( Boolean isValid, String Message) {
+            this.isValid = isValid;
+            this.message = Message;
+        }
+
+        public Boolean getIsValid() {
+            return isValid;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 }
