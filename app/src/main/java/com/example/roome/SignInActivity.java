@@ -8,10 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.flatdialoglibrary.dialog.FlatDialog;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,6 +39,7 @@ public class SignInActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
     private SignInButton googleSignInButton;
     private GoogleApiClient googleApiClient;
+    private Button infoButton;
 
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
@@ -65,6 +69,29 @@ public class SignInActivity extends AppCompatActivity implements
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        infoButton = findViewById(R.id.buttonAbout);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appInfo();
+            }
+        });
+    }
+
+    private void appInfo(){
+        final FlatDialog flatDialog = new FlatDialog(SignInActivity.this);
+        flatDialog.setTitle("rooMe")
+                .setSecondButtonText("Dismiss")
+                .setSubtitle("about rooMe app")
+                //todo - you can choose to change the info as you'd like, see strings.xml
+                .withSecondButtonListner(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        flatDialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     /**
