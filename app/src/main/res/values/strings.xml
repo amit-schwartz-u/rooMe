@@ -69,8 +69,8 @@
     <string name="contact_us_message">Feel free to contact us via email if you have any suggestions or complaints!</string>
     <string name="signOutMsg2">Are you sure you want to do this ?</string>
     <string name="signOutMsg1">This step will delete your account</string>
-    <string name="cancel">cancel</string>
-    <string name="yes">YES</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
 
 
 </resources>

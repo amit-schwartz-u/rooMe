@@ -26,7 +26,7 @@ public class AccountDeleter {
 
     public void showSignOutDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(_context);
-        View v = _activity.getLayoutInflater().inflate(R.layout.sing_out_dialog, null);
+        View v = _activity.getLayoutInflater().inflate(R.layout.sign_out_dialog, null);
         dialogBuilder.setView(v);
         final AlertDialog alertdialog = dialogBuilder.create();
         onClickDialog(v, alertdialog);

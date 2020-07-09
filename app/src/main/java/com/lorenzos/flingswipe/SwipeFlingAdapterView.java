@@ -37,6 +37,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
     private OnItemClickListener mOnItemClickListener;
     private FlingCardListener flingCardListener;
     private PointF mLastTouchPoint;
+    private boolean enabled = true;
 
 
     public SwipeFlingAdapterView(Context context) {
@@ -237,7 +238,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
 
                     @Override
                     public void onClick(Object dataObject) {
-                        if(mOnItemClickListener!=null)
+                        if(mOnItemClickListener!=null && enabled)
                             mOnItemClickListener.onItemClicked(0, dataObject);
 
                     }
@@ -330,6 +331,14 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
         void onRightCardExit(Object dataObject);
         void onAdapterAboutToEmpty(int itemsInAdapter);
         void onScroll(float scrollProgressPercent);
+    }
+
+    public void enable() {
+        enabled = true;
+    }
+
+    public void disable() {
+        enabled = false;
     }
 
 
